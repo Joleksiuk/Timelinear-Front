@@ -1,0 +1,113 @@
+body {
+    background-color: #232938;
+}
+
+.logo-background {
+    width: 250px;
+    height: 250px;
+    border-radius: 50px;
+    background-image: linear-gradient(200deg, #ffdb5b, #fc8600, #f65bcd);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.circle-group {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    position: relative;
+}
+
+.circle-container {
+    width: calc(100% - 30px);
+    height: calc(100% - 30px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.logo-inner-background {
+    width: calc(100% - 25px);
+    height: calc(100% - 25px);
+    border-radius: 50px;
+    background-color: #232938;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.logo-circle-background-first {
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(100deg, #3e54d1, #3ac6e9);
+    border-radius: 100% 0 0 0;
+    float: left;
+}
+
+.logo-circle-background-second {
+    width: calc(100%);
+    height: calc(100%);
+    border-radius: 0 100% 0 0;
+    float: right;
+}
+
+.logo-circle-background-third {
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(100deg, #ff2dab, #ff7d33);
+    border-radius: 0 0 0 100%;
+    float: left;
+}
+
+.logo-circle-background-fourth {
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(100deg, #ffca1b, #ff8e04);
+    border-radius: 0 0 100% 0;
+    float: right;
+}
+
+.logo-circle-inner-background {
+    width: calc(100% - 100px);
+    height: calc(100% - 100px);
+    border-radius: 200px;
+    background-color: #232938;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pointer-circle {
+    width: calc(100% - 100px);
+    height: calc(100% - 100px);
+    border-radius: 50px;
+    background-color: #ffca1b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.pointer-inner-circle {
+    width: calc(100% - 15px);
+    height: calc(100% - 15px);
+    border-radius: 50px;
+    background-color: #232938;
+}
+
+.pointer {
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 95px solid #ffca1b;
+    transform: translate(0, -60%);
+    rotate: 20deg;
+    position: absolute;
+}
