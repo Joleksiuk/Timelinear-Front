@@ -17,7 +17,6 @@ export default function EventsListPage() {
                     {getCurrentUser() ? (
                         <EventFormContainerStyled>
                             <CreateTimeEventModal />
-                            <CreateEventForm />
                             <TimeEventListHeader />
                             <TimeEventsList />
                         </EventFormContainerStyled>

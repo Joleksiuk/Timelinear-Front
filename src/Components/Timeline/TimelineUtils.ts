@@ -5,6 +5,7 @@ import DateUtils from '@/Utils/DateUtils'
 export default {
     mapTimeEventToTimelineEvent(timeEvent: TimeEvent): TimelineEvent {
         return {
+            id: timeEvent.id,
             date: DateUtils.stringToDayjsDate(timeEvent.startDate),
             eventName: timeEvent.name,
             description: timeEvent.description,

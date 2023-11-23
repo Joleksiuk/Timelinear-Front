@@ -25,6 +25,8 @@ export default function TimelineBranch({
                 eventIcon={timelineEvent.eventIcon}
                 display={direction === 'left'}
                 style={iconStyle}
+                isRemovable={direction === 'left'}
+                timeEventId={timelineEvent.id}
             />
             <TimelineData
                 timelineEvent={timelineEvent}
@@ -46,6 +48,8 @@ export default function TimelineBranch({
                 eventIcon={timelineEvent.eventIcon}
                 display={direction === 'right'}
                 style={iconStyle}
+                isRemovable={direction === 'right'}
+                timeEventId={timelineEvent.id}
             />
         </BranchContainerStyled>
     )

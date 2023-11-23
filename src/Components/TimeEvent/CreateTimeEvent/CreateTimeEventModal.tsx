@@ -25,8 +25,8 @@ export default function CreateTimeEventModal() {
 
     return (
         <div>
-            <Button variant="contained" onClick={handleOpen}>
-                Create Timeline
+            <Button variant="contained" onClick={handleOpen} fullWidth>
+                Create time event
             </Button>
             <Modal
                 aria-labelledby="transition-modal-title"

@@ -1,18 +1,36 @@
+import styled from 'styled-components'
 import { iconMapping } from './IconMapping'
 import { EventIcon } from './types'
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
+import { IconButton } from '@mui/material'
+import { useSingleTimelineContext } from '../Timeline/TimelineProvider/SingleTimelineProvider'
 
 type Props = {
     eventIcon: EventIcon | undefined
     style?: any
     display?: boolean
+    isRemovable?: boolean
+    timeEventId?: number
 }
 
 const defaultStyle = { width: '70px', height: '70px' }
+
+const ContainerStyled = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+`
+
 export default function EventIconComponent({
     eventIcon,
     style = defaultStyle,
     display = true,
+    isRemovable = false,
+    timeEventId,
 }: Props) {
+    const { removeEventFromTimeline } = useSingleTimelineContext()
     const getChosenIcon = (): JSX.Element => {
         if (
             eventIcon === null ||
@@ -37,5 +55,16 @@ export default function EventIconComponent({
         }
         return <div>None</div>
     }
-    return <>{display ? getChosenIcon() : <div style={defaultStyle}></div>}</>
+    return (
+        <ContainerStyled>
+            {display ? getChosenIcon() : <div style={defaultStyle}></div>}
+            {isRemovable && timeEventId !== undefined && (
+                <IconButton
+                    onClick={() => removeEventFromTimeline(timeEventId)}
+                >
+                    <RemoveCircleIcon sx={{ color: '#a84232' }} />
+                </IconButton>
+            )}
+        </ContainerStyled>
+    )
 }

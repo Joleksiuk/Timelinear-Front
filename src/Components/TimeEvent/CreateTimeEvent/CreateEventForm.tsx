@@ -167,6 +167,8 @@ export default function CreateEventForm({ isInModal = false }: Props) {
                         }
                     }}
                     error={nameError}
+                    multiline
+                    rows={4}
                 />
                 <TextField
                     label="Description"
@@ -180,6 +182,8 @@ export default function CreateEventForm({ isInModal = false }: Props) {
                         }
                     }}
                     error={descriptionError}
+                    multiline
+                    rows={6}
                 />
                 <IconSearchDialog
                     eventIcon={eventIcon}

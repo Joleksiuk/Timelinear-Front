@@ -140,7 +140,7 @@ export default {
             localStorage.getItem(LOCAL_STORAGE_KEY_TIMELINES) || '[]'
         )
         const index = timelines.findIndex(
-            (t: TimelineModel) => t.id === data.timelineId
+            (t: TimelineModel) => t.id === data.timeEventId
         )
         if (index !== -1) {
             timelines[index].timeEvents = timelines[index].timeEvents.filter(

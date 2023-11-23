@@ -20,7 +20,7 @@ export default {
             description: requestData.description,
             startDate: requestData.startDate || '',
             endDate: requestData.endDate || '',
-            iconType: 'emoji',
+            iconType: requestData.iconType,
             iconSource: requestData.iconSource,
             category: requestData.category,
         }

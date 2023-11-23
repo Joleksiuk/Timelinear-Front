@@ -19,6 +19,7 @@ type SignleTimelineContextProps = {
     setTimeline: (timeline: TimelineModel) => void
     setIsLoadingData: (value: boolean) => void
     addEventToTimeline: (event: TimeEvent) => Promise<void>
+    removeEventFromTimeline: (id: number) => Promise<void>
 }
 
 const DefaultTimeEventsContext: SignleTimelineContextProps = {
@@ -28,6 +29,7 @@ const DefaultTimeEventsContext: SignleTimelineContextProps = {
     setTimeline: (timeline: TimelineModel) => {},
     setIsLoadingData: (value: boolean) => {},
     addEventToTimeline: (event: TimeEvent) => Promise.resolve(),
+    removeEventFromTimeline: (id: number) => Promise.resolve(),
 }
 
 const TimelinesContext = createContext<SignleTimelineContextProps>(
@@ -87,6 +89,7 @@ const SingleTimelineProvider = ({ children }: Props) => {
             return
         }
 
+        console.log(newTimeEvent)
         const requestData: TimelineTimeEventBean = {
             timelineId: Number(timeline.id),
             timeEventId: newTimeEvent.id,
@@ -94,7 +97,10 @@ const SingleTimelineProvider = ({ children }: Props) => {
 
         await TimelineService.addEventToTimeline(requestData)
 
-        const updatedTimeEvents = [...(timeline.timeEvents || [])]
+        const updatedTimeEvents = [
+            ...(timeline.timeEvents.filter((timeEvent) => timeEvent !== null) ||
+                []),
+        ]
         updatedTimeEvents.push(newTimeEvent)
 
         const timelineUpdated: TimelineModel = { ...timeline }
@@ -103,11 +109,32 @@ const SingleTimelineProvider = ({ children }: Props) => {
         setTimeline(timelineUpdated)
     }
 
+    const removeEventFromTimeline = async (id: number): Promise<void> => {
+        if (!timeline || id === null) {
+            return
+        }
+        const requestData: TimelineTimeEventBean = {
+            timelineId: Number(timeline?.id),
+            timeEventId: id,
+        }
+        await TimelineService.removeEventFromTimeline(requestData)
+
+        const updatedTimeEvents = [
+            ...(timeline.timeEvents
+                .filter((timeEvent) => timeEvent !== null)
+                .filter((arg) => arg.id !== id) || []),
+        ]
+
+        const timelineUpdated: TimelineModel = { ...timeline }
+        timelineUpdated.timeEvents = updatedTimeEvents.sort(sortTimeEvents)
+        setTimeline(timelineUpdated)
+    }
+
     const isEventAlreadyOnTheList = (newEvent: TimeEvent): boolean => {
         return (
-            timeline?.timeEvents.filter(
-                (eventArg) => eventArg.id === newEvent.id
-            ).length !== 0
+            timeline?.timeEvents
+                .filter((timeEvent) => timeEvent !== null)
+                .filter((eventArg) => eventArg.id === newEvent.id).length !== 0
         )
     }
 
@@ -124,6 +151,7 @@ const SingleTimelineProvider = ({ children }: Props) => {
                     setIsLoadingData(value)
                 },
                 addEventToTimeline,
+                removeEventFromTimeline,
             }}
         >
             {children}

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
     BranchStyled,
     CircleRootStyled,
@@ -12,7 +13,6 @@ type Props = {
 
 export default function TimelineBranchCircle({ display, direction }: Props) {
     const { parameters } = useTimelineChartContext()
-
     return (
         <>
             {direction === 'right' && (
