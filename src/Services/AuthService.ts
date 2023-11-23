@@ -71,8 +71,13 @@ export const logout = () => {
 }
 
 export const getCurrentUser = (): UserModel | null => {
-    const userStr = localStorage.getItem('user')
-    if (userStr) return JSON.parse(userStr)
-
-    return null
+    const mockUser: UserModel = {
+        access_token: 'access_token',
+        refresh_token: 'refrsh_roken',
+        email: 'email',
+        username: 'user',
+        avatar_seed: 'avatar_seed',
+        avatar_type: 'adventurer',
+    }
+    return mockUser
 }

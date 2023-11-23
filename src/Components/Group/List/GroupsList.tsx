@@ -47,10 +47,7 @@ export default function GroupsList() {
                 <CircularProgress />
             ) : (
                 <TableContainer component={Paper}>
-                    <Table
-                        sx={{ minWidth: 500 }}
-                        aria-label="custom pagination table"
-                    >
+                    <Table sx={{ minWidth: 1000 }}>
                         <TableBody>
                             <TableCell component="th"></TableCell>
                             <TableCell component="th">Name</TableCell>
@@ -105,7 +102,7 @@ export default function GroupsList() {
                                         25,
                                         { label: 'All', value: -1 },
                                     ]}
-                                    colSpan={3}
+                                    colSpan={6}
                                     count={groups.length}
                                     rowsPerPage={rowsPerPage}
                                     page={page}

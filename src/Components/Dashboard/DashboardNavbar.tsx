@@ -1,9 +1,10 @@
-import { Toolbar, IconButton, Typography, Link } from '@mui/material'
+import { Toolbar, IconButton, Typography, Link, Button } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import { AppBar } from './Dashboard.styled'
-import LoggedAccountDropdown from '@/Components/Menus/LoggedAccountDropdown'
-import { getCurrentUser } from '@/Services/AuthService'
-import NotLoggedAccountDropdown from '@/Components/Menus/NotLoggedAccountDropdown'
+import TimeEventListService from '../TimeEventList/TimeEventListService'
+import CategoryService from '../Category/CategoryService'
+import GroupsService from '../Group/GroupsService'
+import TimelineService from '../Timeline/TimelineProvider/TimelineService'
 
 type Props = {
     toggleDrawer: () => void
@@ -11,6 +12,14 @@ type Props = {
 }
 
 export default function DashboardNavbar({ toggleDrawer, open }: Props) {
+    const handleLoadTestData = () => {
+        GroupsService.loadMockData()
+        CategoryService.loadTestData()
+        TimeEventListService.loadMockData()
+        TimelineService.loadMockData()
+        window.location.reload()
+    }
+
     return (
         <AppBar
             position="absolute"
@@ -41,11 +50,9 @@ export default function DashboardNavbar({ toggleDrawer, open }: Props) {
                         Timelinear
                     </Link>
                 </Typography>
-                {getCurrentUser() !== null ? (
-                    <LoggedAccountDropdown />
-                ) : (
-                    <NotLoggedAccountDropdown />
-                )}
+                <Button variant="contained" onClick={handleLoadTestData}>
+                    Load Test Data
+                </Button>
             </Toolbar>
         </AppBar>
     )

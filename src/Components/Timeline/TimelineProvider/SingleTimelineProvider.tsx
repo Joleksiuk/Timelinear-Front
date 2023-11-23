@@ -50,7 +50,7 @@ const SingleTimelineProvider = ({ children }: Props) => {
             const responseTimeline = await TimelineService.getTimeline(
                 Number(timelineId)
             )
-            if (responseTimeline.ownerEmail === getCurrentUser()?.email) {
+            if (responseTimeline?.ownerEmail === getCurrentUser()?.email) {
                 setCanEdit(true)
             }
             setTimeline(responseTimeline)

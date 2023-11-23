@@ -1,72 +1,128 @@
-import { request } from '@/Services/API'
+import { mockGroups, mockUsers } from '@/MockData/MockGroup'
 import {
     Group,
-    GroupBulkRequest,
     GroupBulkResponse,
     GroupRequest,
     GroupUserBulkResponse,
     GroupUsersActionRequest,
 } from './GroupTypes'
-import {
-    GROUPS_ADD_USERS,
-    GROUPS_BULK_URL,
-    GROUPS_OWNED_URL,
-    GROUPS_REMOVE_USERS,
-    GROUPS_URL,
-    USERS_URL,
-} from '@/Services/APIConstants'
+
+const LOCAL_STORAGE_KEY_GROUPS = 'groups'
 
 export default {
     async createGroup(groupRequestData: GroupRequest): Promise<Group> {
-        const response = await request(GROUPS_URL, 'POST', groupRequestData)
-        return response.data
+        const groups = JSON.parse(
+            localStorage.getItem(LOCAL_STORAGE_KEY_GROUPS) || '[]'
+        )
+        const newGroup: Group = {
+            id: groups.length + 1,
+            name: groupRequestData.name,
+            description: groupRequestData.description,
+            users: [],
+        }
+        groups.push(newGroup)
+        localStorage.setItem(LOCAL_STORAGE_KEY_GROUPS, JSON.stringify(groups))
+        return newGroup
     },
 
     async updateGroup(group: Group): Promise<Group> {
-        const response = await request(
-            `${GROUPS_URL}/${group.id}`,
-            'PUT',
-            group
+        const groups = JSON.parse(
+            localStorage.getItem(LOCAL_STORAGE_KEY_GROUPS) || '[]'
         )
-        return response.data
+        const index = groups.findIndex((g: Group) => g.id === group.id)
+        if (index !== -1) {
+            groups[index] = group
+            localStorage.setItem(
+                LOCAL_STORAGE_KEY_GROUPS,
+                JSON.stringify(groups)
+            )
+        }
+        return group
     },
 
-    async deleteGroup(timelineId: number): Promise<void> {
-        await request(`${GROUPS_URL}/${timelineId}`, 'DELETE')
+    async deleteGroup(groupId: number): Promise<void> {
+        const groups = JSON.parse(
+            localStorage.getItem(LOCAL_STORAGE_KEY_GROUPS) || '[]'
+        )
+        const updatedGroups = groups.filter((g: Group) => g.id !== groupId)
+        localStorage.setItem(
+            LOCAL_STORAGE_KEY_GROUPS,
+            JSON.stringify(updatedGroups)
+        )
     },
 
-    async getGroup(timelineId: number): Promise<Group> {
-        const response = await request(`${GROUPS_URL}/${timelineId}`, 'GET')
-        return response.data
+    async getGroup(groupId: number): Promise<Group | null> {
+        const groups = JSON.parse(
+            localStorage.getItem(LOCAL_STORAGE_KEY_GROUPS) || '[]'
+        )
+        const group = groups.find((g: Group) => g.id === groupId) || null
+        return group
     },
 
     async getOwnedGroups(): Promise<GroupBulkResponse> {
-        const response = await request(GROUPS_OWNED_URL, 'GET')
-        return response.data
+        const groups = JSON.parse(
+            localStorage.getItem(LOCAL_STORAGE_KEY_GROUPS) || '[]'
+        )
+        return { groups }
     },
 
     async getAllUsers(): Promise<GroupUserBulkResponse> {
-        const response = await request(USERS_URL, 'GET')
-        return response.data
+        const users = JSON.parse(localStorage.getItem('users') || '[]')
+        return { users }
     },
 
     async getGroupsInBulk(
         groupsIds: Array<number>
     ): Promise<GroupBulkResponse> {
-        const requestData: GroupBulkRequest = {
-            groupsIds,
-        }
-        const response = await request(GROUPS_BULK_URL, 'GET', requestData)
-        return response.data
+        const groups = JSON.parse(
+            localStorage.getItem(LOCAL_STORAGE_KEY_GROUPS) || '[]'
+        )
+        const requestedGroups = groups.filter((g: Group) =>
+            groupsIds.includes(g.id)
+        )
+        return { groups: requestedGroups }
     },
 
     async addUsersToGroup(data: GroupUsersActionRequest): Promise<string> {
-        const response = await request(GROUPS_ADD_USERS, 'PUT', data)
-        return response.data
+        const groups = JSON.parse(
+            localStorage.getItem(LOCAL_STORAGE_KEY_GROUPS) || '[]'
+        )
+        const index = groups.findIndex((g: Group) => g.id === data.groupId)
+        if (index !== -1) {
+            groups[index].users = Array.from(
+                new Set([...groups[index].users, ...data.usersIds])
+            )
+            localStorage.setItem(
+                LOCAL_STORAGE_KEY_GROUPS,
+                JSON.stringify(groups)
+            )
+        }
+        return 'Users added to the group successfully'
     },
 
     async removeUsersFromGroup(data: GroupUsersActionRequest): Promise<string> {
-        const response = await request(GROUPS_REMOVE_USERS, 'PUT', data)
-        return response.data
+        const groups = JSON.parse(
+            localStorage.getItem(LOCAL_STORAGE_KEY_GROUPS) || '[]'
+        )
+        const index = groups.findIndex((g: Group) => g.id === data.groupId)
+        if (index !== -1) {
+            groups[index].users = groups[index].users.filter(
+                (user: any) => !data.usersIds.includes(user.id)
+            )
+            localStorage.setItem(
+                LOCAL_STORAGE_KEY_GROUPS,
+                JSON.stringify(groups)
+            )
+        }
+        return 'Users removed from the group successfully'
+    },
+
+    async loadMockData(): Promise<void> {
+        localStorage.setItem(
+            LOCAL_STORAGE_KEY_GROUPS,
+            JSON.stringify(mockGroups)
+        )
+        localStorage.setItem('users', JSON.stringify(mockUsers))
+        JSON.parse(localStorage.getItem('users') || '[]')
     },
 }

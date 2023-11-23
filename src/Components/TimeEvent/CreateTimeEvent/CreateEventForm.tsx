@@ -4,7 +4,7 @@ import dayjs, { Dayjs } from 'dayjs'
 import { TextField, Button, AlertTitle } from '@mui/material'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { DatePicker, DateTimePicker } from '@mui/x-date-pickers'
+import { DateTimePicker } from '@mui/x-date-pickers'
 import { ContainerStyled } from './CreateEventForm.styled'
 import { request } from '@/Services/API'
 import { TIME_EVENT_URL } from '@/Services/APIConstants'
@@ -18,6 +18,7 @@ import { EventIcon } from '@/Components/IconSearch/types'
 import IconSearchDialog from '@/Components/IconSearch/IconSearchDialog'
 import CreateCategoryDialog from '@/Components/Category/CreateCategoryDialog'
 import { CategoryModel } from '@/Components/Category/Category.types'
+import TimeEventListService from '@/Components/TimeEventList/TimeEventListService'
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
     function Alert(props, ref) {
@@ -78,7 +79,7 @@ export default function CreateEventForm({ isInModal = false }: Props) {
             category: category,
         }
         setIsLoadingData(true)
-        const response = await request(TIME_EVENT_URL, 'POST', requestData)
+        const response = await TimeEventListService.createTimeEvent(requestData)
         const newTimeEvent: TimeEvent = response.data
         const updatedTimeEvents = [...timeEvents]
         updatedTimeEvents.push(newTimeEvent)

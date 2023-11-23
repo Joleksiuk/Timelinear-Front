@@ -17,8 +17,8 @@ export default {
     mapTimeEventsToTimelineEvents(
         timeEvents: Array<TimeEvent>
     ): Array<TimelineEvent> {
-        return timeEvents.map((event) =>
-            this.mapTimeEventToTimelineEvent(event)
-        )
+        return timeEvents
+            .filter((event) => event !== null)
+            .map((event) => this.mapTimeEventToTimelineEvent(event))
     },
 }

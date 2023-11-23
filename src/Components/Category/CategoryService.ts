@@ -1,43 +1,74 @@
-import { request } from '@/Services/API'
+import { mockCategories } from '@/MockData/MockCategories'
 import {
     CategoryBulkResponse,
     CategoryModel,
     CategoryRequest,
 } from './Category.types'
-import { CATEGORIES_OWNED_URL, CATEGORY_URL } from '@/Services/APIConstants'
+
+const LOCAL_STORAGE_KEY = 'categories'
 
 export default {
     async createCategory(
         categoryRequestData: CategoryRequest
     ): Promise<CategoryModel> {
-        const response = await request(
-            CATEGORY_URL,
-            'POST',
-            categoryRequestData
+        const categories = JSON.parse(
+            localStorage.getItem(LOCAL_STORAGE_KEY) || '[]'
         )
-        return response.data
+        const newCategory = {
+            ...categoryRequestData,
+            id: categories.length + 1,
+        }
+        categories.push(newCategory)
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(categories))
+        return newCategory
     },
 
     async updateCategory(category: CategoryModel): Promise<CategoryModel> {
-        const response = await request(
-            `${CATEGORY_URL}/${category.id}`,
-            'PUT',
-            category
+        const categories = JSON.parse(
+            localStorage.getItem(LOCAL_STORAGE_KEY) || '[]'
         )
-        return response.data
+        const index = categories.findIndex(
+            (category: CategoryModel) => category.id === category.id
+        )
+        if (index !== -1) {
+            categories[index] = category
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(categories))
+        }
+        return category
     },
 
     async deleteCategory(categoryId: number): Promise<void> {
-        await request(`${CATEGORY_URL}/${categoryId}`, 'DELETE')
+        const categories = JSON.parse(
+            localStorage.getItem(LOCAL_STORAGE_KEY) || '[]'
+        )
+        const updatedCategories = categories.filter(
+            (category: CategoryModel) => category.id !== categoryId
+        )
+        localStorage.setItem(
+            LOCAL_STORAGE_KEY,
+            JSON.stringify(updatedCategories)
+        )
     },
 
-    async getCategory(categoryId: number): Promise<CategoryModel> {
-        const response = await request(`${CATEGORY_URL}/${categoryId}`, 'GET')
-        return response.data
+    async getCategory(categoryId: number): Promise<CategoryModel | null> {
+        const categories = JSON.parse(
+            localStorage.getItem(LOCAL_STORAGE_KEY) || '[]'
+        )
+        const category =
+            categories.find(
+                (category: CategoryModel) => category.id === categoryId
+            ) || null
+        return category
     },
 
     async getOwnedCategories(): Promise<CategoryBulkResponse> {
-        const response = await request(CATEGORIES_OWNED_URL, 'GET')
-        return response.data
+        const categories = JSON.parse(
+            localStorage.getItem(LOCAL_STORAGE_KEY) || '[]'
+        )
+        return { categories: categories }
+    },
+
+    async loadTestData(): Promise<void> {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockCategories))
     },
 }
