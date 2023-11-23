@@ -5,6 +5,7 @@ import TimeEventListService from '../TimeEventList/TimeEventListService'
 import CategoryService from '../Category/CategoryService'
 import GroupsService from '../Group/GroupsService'
 import TimelineService from '../Timeline/TimelineProvider/TimelineService'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
     toggleDrawer: () => void
@@ -12,12 +13,14 @@ type Props = {
 }
 
 export default function DashboardNavbar({ toggleDrawer, open }: Props) {
+    const navigate = useNavigate()
+
     const handleLoadTestData = () => {
         GroupsService.loadMockData()
         CategoryService.loadTestData()
         TimeEventListService.loadMockData()
         TimelineService.loadMockData()
-        window.location.reload()
+        navigate('')
     }
 
     return (
