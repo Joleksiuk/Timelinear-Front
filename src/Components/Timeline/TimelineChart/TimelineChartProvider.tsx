@@ -11,7 +11,7 @@ export type Parameters = {
     textMaxWidth?: number
 }
 
-const DefaultParameters: Parameters = {
+export const DefaultParameters: Parameters = {
     rootCircleRadius: 50,
     branchCircleRadius: 35,
     rootMargin: 50,
@@ -32,9 +32,7 @@ const DefaultTimelineChartContext: TimelineChartContextProps = {
     setParameters: (parameters: Parameters) => {},
 }
 
-const TimelineChartContext = createContext<TimelineChartContextProps>(
-    DefaultTimelineChartContext
-)
+const TimelineChartContext = createContext<TimelineChartContextProps>(DefaultTimelineChartContext)
 
 type TimelineChartProviderProps = {
     initialParams?: Parameters
@@ -64,9 +62,7 @@ const TimelineChartProvider = ({
 const useTimelineChartContext = () => {
     const context = useContext<TimelineChartContextProps>(TimelineChartContext)
     if (!context) {
-        throw new Error(
-            'useTimelineChartContext must be used within a TimelineChartProvider'
-        )
+        throw new Error('useTimelineChartContext must be used within a TimelineChartProvider')
     }
     return context
 }

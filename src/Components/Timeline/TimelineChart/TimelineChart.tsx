@@ -15,6 +15,7 @@ type Props = {
 }
 
 export default function TimelineChart({ events, parameters }: Props) {
+    console.log(parameters)
     return (
         <TimelineChartProvider initialParams={parameters}>
             <ElementsStyled>

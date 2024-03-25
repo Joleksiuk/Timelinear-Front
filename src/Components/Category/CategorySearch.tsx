@@ -15,10 +15,7 @@ type Props = {
     setCategory: (value: CategoryModel | null) => void
 }
 
-export default function CategorySearch({
-    defaultCategory: category,
-    setCategory,
-}: Props) {
+export default function CategorySearch({ defaultCategory: category, setCategory }: Props) {
     const [categories, setCategories] = useState<Array<CategoryModel>>([])
     const [loadingData, setLoadingData] = useState<boolean>(false)
 
@@ -65,25 +62,19 @@ export default function CategorySearch({
     }
 
     return (
-        <>
-            {loadingData ? (
-                <CircularProgress />
-            ) : (
-                <Autocomplete
-                    disablePortal
-                    id="categories-search"
-                    options={mapCategoriesToOption()}
-                    onChange={(event: any, newValue: any) => {
-                        handleValueChange(newValue)
-                        console.log(event)
-                    }}
-                    defaultValue={getDefaultValue()}
-                    sx={{ minWidth: 300 }}
-                    renderInput={(params) => (
-                        <TextField {...params} label="Choose category" />
-                    )}
-                />
-            )}
-        </>
+        <Autocomplete
+            fullWidth
+            disablePortal
+            loading={loadingData}
+            id="categories-search"
+            options={mapCategoriesToOption()}
+            onChange={(event: any, newValue: any) => {
+                handleValueChange(newValue)
+                console.log(event)
+            }}
+            defaultValue={getDefaultValue()}
+            renderInput={(params) => <TextField {...params} label="Choose category" />}
+            sx={{ minWidth: '200px', maxWidth: '400px' }}
+        />
     )
 }

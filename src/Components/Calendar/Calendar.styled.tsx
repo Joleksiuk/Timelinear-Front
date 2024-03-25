@@ -2,14 +2,15 @@ import styled from 'styled-components'
 export const CalendarTable = styled.table`
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
 `
 export type CellParams = {
     isMarked: boolean
 }
 
 export const HeaderCellStyled = styled.th`
-    padding: 8px;
     text-align: center;
+    max-width: 80px;
 `
 
 type BodyCellProps = {
@@ -29,8 +30,7 @@ export const BodyCell = styled.td<BodyCellProps>`
     padding: 8px;
     text-align: center;
     border: 1px solid #23263d;
-    width: 40px !important;
-    height: 80px !important;
+    min-height: 50px;
     overflow: hidden;
     border-radius: 15px;
     box-shadow:
@@ -41,18 +41,30 @@ export const BodyCell = styled.td<BodyCellProps>`
         background-color: #41427d;
         cursor: 'pointer';
     }
+    max-width: 80px; // Apply the max-width to the first body cell
+`
+
+export const DayCell = styled.td`
+    background-color: '#2a2033ee';
+    padding: 8px;
+    text-align: center;
+    box-shadow:
+        rgba(0, 0, 0, 0.3) 0px 19px 38px,
+        rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    min-height: 50px;
+    max-width: 50px;
+    &:hover {
+        background-color: #282941;
+        cursor: 'pointer';
+    }
 `
 
 export const EventStyled = styled.div`
-    width: 30px;
-    height: 30px;
     background-color: #417d5f;
     border-radius: 5px;
 `
 
 export const EmptyElement = styled.div`
-    width: 30px;
-    height: 30px;
     background-color: #41597d;
     border-radius: 5px;
 `

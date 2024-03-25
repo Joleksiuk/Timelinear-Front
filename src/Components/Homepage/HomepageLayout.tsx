@@ -11,7 +11,7 @@ import { Typography } from '@mui/material'
 export default function HomepageLayout() {
     return (
         <HomepageContainerStyled>
-            <Typography sx={{ fontSize: '30px' }}>
+            {/* <Typography sx={{ fontSize: '30px' }}>
                 Introducing Timelinear!
             </Typography>
             <FlexContainer>
@@ -117,7 +117,7 @@ export default function HomepageLayout() {
                     src="https://zapodaj.net/images/5b98740da19bf.png"
                     alt=""
                 />
-            </FlexContainer>
+            </FlexContainer> */}
         </HomepageContainerStyled>
     )
 }

@@ -17,6 +17,8 @@ export default function FilterTextSearch() {
             variant="outlined"
             onChange={handleTextChange}
             autoComplete="off"
+            fullWidth
+            sx={{ minWidth: '200px', maxWidth: '400px' }}
         />
     )
 }

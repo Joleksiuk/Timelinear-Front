@@ -20,6 +20,7 @@ import { Divider, Typography } from '@mui/material'
 import GroupSearch from '@/Components/Group/Search/GroupSearch'
 import { getCurrentUser } from '@/Services/AuthService'
 import TimelineOptionDropdown from './TimelineOptionDropdown'
+import useResponsiveParameters from './TimelineChart/UseResponsiveParameters'
 
 const timelineChartParameters = {
     rootCircleRadius: 100,
@@ -31,8 +32,7 @@ const timelineChartParameters = {
     iconSize: 70,
 }
 export default function Timeline() {
-    const { canEdit, timeline, isLoadingData, addEventToTimeline } =
-        useSingleTimelineContext()
+    const { canEdit, timeline, isLoadingData, addEventToTimeline } = useSingleTimelineContext()
     const [eventSearchValue, setEventSearchValue] = useState<TimeEvent>()
 
     const handleAddEventToTimeline = () => {
@@ -40,6 +40,7 @@ export default function Timeline() {
             addEventToTimeline(eventSearchValue)
         }
     }
+    const responsiveParameters = useResponsiveParameters()
 
     return (
         <div>
@@ -84,9 +85,7 @@ export default function Timeline() {
                                         OR
                                     </Divider>
                                     <GridColumnContainer>
-                                        <TimeEventsSearch
-                                            setEventValue={setEventSearchValue}
-                                        />
+                                        <TimeEventsSearch setEventValue={setEventSearchValue} />
                                         <Button
                                             variant="contained"
                                             onClick={handleAddEventToTimeline}
@@ -98,7 +97,7 @@ export default function Timeline() {
                             </MainContainerStyled>
                         )}
                         <TimelineChart
-                            parameters={timelineChartParameters}
+                            parameters={responsiveParameters}
                             events={
                                 timeline
                                     ? TimelineUtils.mapTimeEventsToTimelineEvents(

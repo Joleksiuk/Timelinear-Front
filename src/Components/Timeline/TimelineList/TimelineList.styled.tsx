@@ -23,6 +23,7 @@ export const ItemStyled = styled.div`
     padding: 20px;
     height: 300px;
     width: 600px;
+    min-width: 400px;
     overflow: hidden;
     box-shadow:
         rgba(0, 0, 0, 0.07) 0px 1px 2px,

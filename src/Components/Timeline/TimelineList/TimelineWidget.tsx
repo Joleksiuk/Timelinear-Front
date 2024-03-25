@@ -40,9 +40,7 @@ export default function TimelineWidget({ timeline }: Props) {
             </Typography>
             <TimelineChart
                 parameters={timelineChartParameters}
-                events={TimelineUtils.mapTimeEventsToTimelineEvents(
-                    timeline.timeEvents
-                )}
+                events={TimelineUtils.mapTimeEventsToTimelineEvents(timeline.timeEvents)}
             />
         </ItemStyled>
     )

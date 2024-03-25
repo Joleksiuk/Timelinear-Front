@@ -32,11 +32,7 @@ export default function EventIconComponent({
 }: Props) {
     const { removeEventFromTimeline } = useSingleTimelineContext()
     const getChosenIcon = (): JSX.Element => {
-        if (
-            eventIcon === null ||
-            eventIcon === undefined ||
-            eventIcon.source === undefined
-        ) {
+        if (eventIcon === null || eventIcon === undefined || eventIcon.source === undefined) {
             return <div style={{ marginLeft: '5px' }}> None</div>
         }
         if (eventIcon?.type === 'emoji') {
@@ -57,11 +53,9 @@ export default function EventIconComponent({
     }
     return (
         <ContainerStyled>
-            {display ? getChosenIcon() : <div style={defaultStyle}></div>}
+            {display ? getChosenIcon() : <div style={style}></div>}
             {isRemovable && timeEventId !== undefined && (
-                <IconButton
-                    onClick={() => removeEventFromTimeline(timeEventId)}
-                >
+                <IconButton onClick={() => removeEventFromTimeline(timeEventId)}>
                     <RemoveCircleIcon sx={{ color: '#a84232' }} />
                 </IconButton>
             )}

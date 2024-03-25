@@ -24,8 +24,7 @@ export const CircleRootStyled = styled.div<CircleProps>`
     width: ${(props) => props.width}px;
     height: ${(props) => props.height}px;
     border-radius: ${(props) => props.height}px;
-    background-image: ${(props) =>
-        props.display && 'linear-gradient(200deg, #a33fca, #5b7add)'};
+    background-image: ${(props) => props.display && 'linear-gradient(200deg, #a33fca, #5b7add)'};
     display: flex;
     justify-content: center;
     align-items: center;

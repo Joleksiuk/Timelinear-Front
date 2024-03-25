@@ -6,6 +6,9 @@ import CategoryService from '../Category/CategoryService'
 import GroupsService from '../Group/GroupsService'
 import TimelineService from '../Timeline/TimelineProvider/TimelineService'
 import { useNavigate } from 'react-router-dom'
+import { getCurrentUser } from '@/Services/AuthService'
+import LoggedAccountDropdown from '../Menus/LoggedAccountDropdown'
+import NotLoggedAccountDropdown from '../Menus/NotLoggedAccountDropdown'
 
 type Props = {
     toggleDrawer: () => void
@@ -14,14 +17,6 @@ type Props = {
 
 export default function DashboardNavbar({ toggleDrawer, open }: Props) {
     const navigate = useNavigate()
-
-    const handleLoadTestData = () => {
-        GroupsService.loadMockData()
-        CategoryService.loadTestData()
-        TimeEventListService.loadMockData()
-        TimelineService.loadMockData()
-        navigate('')
-    }
 
     return (
         <AppBar
@@ -53,9 +48,11 @@ export default function DashboardNavbar({ toggleDrawer, open }: Props) {
                         Timelinear
                     </Link>
                 </Typography>
-                <Button variant="contained" onClick={handleLoadTestData}>
-                    Load Test Data
-                </Button>
+                {getCurrentUser() !== null ? (
+                    <LoggedAccountDropdown />
+                ) : (
+                    <NotLoggedAccountDropdown />
+                )}
             </Toolbar>
         </AppBar>
     )

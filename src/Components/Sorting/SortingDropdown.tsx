@@ -1,14 +1,12 @@
-import { useState } from 'react'
-import {
-    FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
-    SelectChangeEvent,
-} from '@mui/material'
-import { SortBy, useSortContext } from './SortingProvider'
+import React from 'react'
+import TextField from '@mui/material/TextField'
+import Autocomplete from '@mui/material/Autocomplete'
+import { useSortContext } from './SortingProvider'
 
-const SortingOptions = [
+type SortBy = 'Start Date' | 'End Date' | 'Name' | 'Event length' | 'Category' | 'Default'
+type SortType = 'ASC' | 'DSC'
+
+const SortingOptions: string[] = [
     'Start Date ASC',
     'Start Date DSC',
     'End Date ASC',
@@ -22,21 +20,24 @@ const SortingOptions = [
     'Default',
 ]
 
-export default function SortingDropdown() {
-    const { sortBy, sortType, setSortType, setSortBy } = useSortContext()
-    const handleChange = (event: SelectChangeEvent) => {
-        getSortType(event.target.value)
-        getSortBy(event.target.value)
+export default function SortingAutocomplete() {
+    const { setSortType, setSortBy } = useSortContext() // Assuming useSortContext is properly typed
+
+    const handleChange = (event: React.SyntheticEvent<Element, Event>, newValue: string | null) => {
+        if (newValue) {
+            getSortType(newValue)
+            getSortBy(newValue)
+        }
     }
 
-    const getSortType = (option: string) => {
-        const possibleType = option.slice(-3)
+    const getSortType = (option: string): void => {
+        const possibleType = option.slice(-3) as SortType
         if (possibleType === 'ASC' || possibleType === 'DSC') {
             setSortType(possibleType)
         }
     }
 
-    const getSortBy = (option: string) => {
+    const getSortBy = (option: string): void => {
         if (option !== 'Default') {
             const possibleSortBy = option.slice(0, -4) as SortBy
             setSortBy(possibleSortBy)
@@ -46,18 +47,14 @@ export default function SortingDropdown() {
     }
 
     return (
-        <FormControl>
-            <InputLabel>Sorting</InputLabel>
-            <Select
-                value={`${sortBy} ${sortType}`}
-                label="Sorting"
-                onChange={handleChange}
-                sx={{ minWidth: '300px' }}
-            >
-                {SortingOptions.map((option) => (
-                    <MenuItem value={option}>{option}</MenuItem>
-                ))}
-            </Select>
-        </FormControl>
+        <Autocomplete
+            options={SortingOptions}
+            value={null} // Adjust this according to how you store/manage the selected value
+            onChange={handleChange}
+            renderInput={(params) => <TextField {...params} label="Sort by" variant="outlined" />}
+            autoHighlight
+            fullWidth
+            sx={{ minWidth: '200px', maxWidth: '400px' }}
+        />
     )
 }

@@ -23,6 +23,7 @@ export const DateErrorContainer = styled.div`
 
 export const TimeEventListHeaderStyled = styled.div`
     display: flex;
-    gap: 10px;
+    gap: 20px;
+    flex-wrap: wrap;
     align-items: center;
 `

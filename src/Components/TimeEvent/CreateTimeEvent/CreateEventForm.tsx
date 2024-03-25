@@ -80,7 +80,7 @@ export default function CreateEventForm({ isInModal = false }: Props) {
         }
         setIsLoadingData(true)
         const response = await TimeEventListService.createTimeEvent(requestData)
-        const newTimeEvent: TimeEvent = response.data
+        const newTimeEvent: TimeEvent = response
         const updatedTimeEvents = [...timeEvents]
         updatedTimeEvents.push(newTimeEvent)
         setTimeEvents(updatedTimeEvents)

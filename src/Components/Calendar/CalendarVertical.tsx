@@ -1,11 +1,10 @@
-import { BodyCell, CalendarTable, HeaderCellStyled, HeaderContainerStyled } from './Calendar.styled'
+import { BodyCell, CalendarTable, DayCell, HeaderContainerStyled } from './Calendar.styled'
 import { useTimeEventsContext } from '../TimeEventList/TimeEventsProvider'
 import dayjs from 'dayjs'
-import { TimeEvent } from '../TimeEvent/types'
 import { Divider, IconButton, TablePagination } from '@mui/material'
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft'
-import { daysOfWeek, months } from './CalendarConstants'
+import { months } from './CalendarConstants'
 import { useState } from 'react'
 import { useSortContext } from '../Sorting/SortingProvider'
 import { sortingFunctionMap } from '../Sorting/SortingUtils'
@@ -13,8 +12,12 @@ import TimeEventListHeader from '../TimeEventList/TimeEventListHeader'
 import { useFilterContext } from '../Filtering/FilterProvider'
 import { isEventInCurrentDate } from './CalendarFunctions'
 import CalendarCell from './CalendarCell'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
 
-const MAX_EVENTS_PER_PAGE = 10
+import TableRow from '@mui/material/TableRow'
+
+const MAX_EVENTS_PER_PAGE = 5
 
 export default function Calendar() {
     const today = new Date()
@@ -52,46 +55,41 @@ export default function Calendar() {
     const { sortingKey } = useSortContext()
     const { filterByCategory, filterByText, filterByDate } = useFilterContext()
 
-    const renderBodyCellsForRow = (timeEvent: TimeEvent) => {
+    const renderBodyCellsForRow = (day: number, index: number) => {
         const bodyCells: any = []
-        const cellIndices = new Set()
+        bodyCells.push(<DayCell aria-colspan={1}>{day}</DayCell>)
 
-        days.forEach((day, index) => {
-            if (cellIndices.has(index)) {
-                return
-            }
+        timeEvents
+            .sort(sortingFunctionMap[sortingKey])
+            .filter(filterByText)
+            .filter(filterByCategory)
+            .filter(filterByDate)
+            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .forEach((timeEvent) => {
+                if (isEventInCurrentDate(day, timeEvent, currentYear, currentMonth)) {
+                    let currentDay = day
+                    const consecutiveMarkedDays = [day]
+                    while (
+                        index + 1 < daysInMonth &&
+                        isEventInCurrentDate(currentDay + 1, timeEvent, currentYear, currentMonth)
+                    ) {
+                        consecutiveMarkedDays.push(currentDay + 1)
+                        currentDay++
+                    }
 
-            if (isEventInCurrentDate(day, timeEvent, currentYear, currentMonth)) {
-                let currentDay = day
-                const consecutiveMarkedDays = [day]
-                let colSpan = 1
-
-                while (
-                    index + colSpan < daysInMonth &&
-                    isEventInCurrentDate(currentDay + 1, timeEvent, currentYear, currentMonth)
-                ) {
-                    consecutiveMarkedDays.push(currentDay + 1)
-                    currentDay++
-                    colSpan++
+                    bodyCells.push(
+                        <CalendarCell
+                            colSpan={1}
+                            timeEvent={timeEvent}
+                            day={day}
+                            daysInMonth={daysInMonth}
+                            isVertical
+                        />
+                    )
+                } else {
+                    bodyCells.push(<BodyCell key={day} colSpan={1} categoryColor={'#121529'} />)
                 }
-
-                bodyCells.push(
-                    <CalendarCell
-                        colSpan={colSpan}
-                        timeEvent={timeEvent}
-                        day={day}
-                        daysInMonth={daysInMonth}
-                        isVertical
-                    />
-                )
-
-                for (let i = index; i < index + colSpan; i++) {
-                    cellIndices.add(i)
-                }
-            } else {
-                bodyCells.push(<BodyCell key={day} colSpan={1} categoryColor={'#121529'} />)
-            }
-        })
+            })
 
         return bodyCells
     }
@@ -111,31 +109,10 @@ export default function Calendar() {
                 {months[currentMonth]} {currentYear}
             </Divider>
             <CalendarTable key="calendar-table">
-                <thead>
-                    <tr>
-                        {Array.from({ length: daysInMonth }, (_, i) => (
-                            <th>
-                                <HeaderCellStyled key={i + 1}>
-                                    {i + 1}
-                                    <br />
-                                    {daysOfWeek[
-                                        new Date(currentYear, currentMonth, i + 1).getDay()
-                                    ].substring(0, 3)}
-                                </HeaderCellStyled>
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
                 <tbody>
-                    {timeEvents
-                        .sort(sortingFunctionMap[sortingKey])
-                        .filter(filterByText)
-                        .filter(filterByCategory)
-                        .filter(filterByDate)
-                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        .map((timeEvent) => (
-                            <tr key={timeEvent.id}>{renderBodyCellsForRow(timeEvent)}</tr>
-                        ))}
+                    {days.map((day, index) => (
+                        <tr key={'calendar-day' + day}>{renderBodyCellsForRow(day, index)}</tr>
+                    ))}
                 </tbody>
             </CalendarTable>
             <TablePagination
