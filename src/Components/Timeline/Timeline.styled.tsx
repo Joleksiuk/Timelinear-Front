@@ -14,11 +14,12 @@ export const MainContainerStyled = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 60px;
+    gap: 20px;
 `
 
 export const HeaderContainerStyled = styled.div`
     display: flex;
+    align-items: center;
     flex-direction: column;
     gap: 30px;
     margin-bottom: 50px;

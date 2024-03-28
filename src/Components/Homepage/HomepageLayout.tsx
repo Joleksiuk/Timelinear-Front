@@ -1,123 +1,95 @@
-import {
-    HomepageContainerStyled,
-    HomepageTextStyled,
-    HomepageTextContainerStyled,
-    HomepageImage,
-    FlexContainer,
-} from './HomepageLayout.styled'
+import { HomepageContainerStyled } from './HomepageLayout.styled'
+import TestTimeline from '../Timeline/TimelineChart/TestTimeline'
+import { TimelineEvent } from '../Timeline/TimelineEvent'
+import dayjs from 'dayjs'
 
-import { Typography } from '@mui/material'
+const eventss: TimelineEvent[] = [
+    {
+        id: 1,
+        date: dayjs('2021-10-27T23:23:26'),
+        eventName: 'Team Retreat',
+        description: 'Launching the new version of our flagship product.',
+        eventIcon: {
+            type: 'emoji',
+            source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f48e.png',
+        },
+    },
+    {
+        id: 2,
+        date: dayjs('2020-07-01T12:15:10'),
+        eventName: 'Product Launch',
+        description: 'Launching an international marketing campaign.',
+        eventIcon: {
+            type: 'emoji',
+            source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f48e.png',
+        },
+    },
+    {
+        id: 3,
+        date: dayjs('2023-02-11T01:41:39'),
+        eventName: 'New Office Opening',
+        description: 'Launching the new version of our flagship product.',
+        eventIcon: {
+            type: 'emoji',
+            source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f48e.png',
+        },
+    },
+    {
+        id: 4,
+        date: dayjs('2022-03-26T16:09:51'),
+        eventName: 'Software Update',
+        description: 'Launching the new version of our flagship product.',
+        eventIcon: {
+            type: 'emoji',
+            source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f48e.png',
+        },
+    },
+    {
+        id: 5,
+        date: dayjs('2021-05-24T21:27:35'),
+        eventName: 'Charity Event',
+        description: 'Educational webinar on industry trends.',
+        eventIcon: {
+            type: 'emoji',
+            source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f48e.png',
+        },
+    },
+    {
+        id: 6,
+        date: dayjs('2022-06-15T11:56:49'),
+        eventName: 'Product Launch',
+        description: 'Launching an international marketing campaign.',
+        eventIcon: {
+            type: 'emoji',
+            source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f48e.png',
+        },
+    },
+    {
+        id: 7,
+        date: dayjs('2021-03-12T13:49:29'),
+        eventName: 'Marketing Campaign',
+        description: 'Launching an international marketing campaign.',
+        eventIcon: {
+            type: 'emoji',
+            source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f48e.png',
+        },
+    },
+    {
+        id: 8,
+        date: dayjs('2020-04-04T09:34:25'),
+        eventName: 'Marketing Campaign',
+        description: "This year's biggest industry conference.",
+        eventIcon: {
+            type: 'emoji',
+            source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f48e.png',
+        },
+    },
+]
 
 export default function HomepageLayout() {
     return (
         <HomepageContainerStyled>
-            {/* <Typography sx={{ fontSize: '30px' }}>
-                Introducing Timelinear!
-            </Typography>
-            <FlexContainer>
-                <HomepageImage
-                    height={500}
-                    src="https://zapodaj.net/images/5a11a03b8236f.png"
-                    alt=""
-                />
-                <HomepageTextContainerStyled>
-                    <HomepageTextStyled>
-                        Your Ultimate Event Planning Companion! Plan, Visualize,
-                        and Share Your Events Like Never Before Are you tired of
-                        juggling multiple apps to manage your events? Say
-                        goodbye to the chaos and welcome the all-in-one solution
-                        that simplifies event planning
-                    </HomepageTextStyled>
-                </HomepageTextContainerStyled>
-                <HomepageImage
-                    height={800}
-                    src="https://zapodaj.net/images/bc34816f6183c.png"
-                    alt=""
-                />
-            </FlexContainer>
-            <FlexContainer>
-                <HomepageImage
-                    width={1000}
-                    src="https://zapodaj.net/images/a713df3141c5b.png"
-                    alt=""
-                />
-                <HomepageTextContainerStyled>
-                    <HomepageTextStyled>
-                        Using a calendar for event planning is essential for
-                        staying organized and managing your time effectively. A
-                        well-maintained calendar helps you avoid overlapping
-                        commitments, prepares you for upcoming events, and
-                        provides valuable reminders. It's a flexible tool,
-                        available in both digital and traditional formats,
-                        making it a must-have for staying on top of your
-                        schedule and ensuring you never miss an important
-                        moment.
-                    </HomepageTextStyled>
-                </HomepageTextContainerStyled>
-            </FlexContainer>
-            <FlexContainer>
-                <HomepageTextContainerStyled>
-                    <HomepageTextStyled>
-                        Browse through events assign them icons or edit them as
-                        you like!
-                    </HomepageTextStyled>
-                </HomepageTextContainerStyled>
-                <HomepageImage
-                    height={800}
-                    src="https://zapodaj.net/images/43380bbfd7ffc.png"
-                    alt=""
-                />
-            </FlexContainer>
-            <FlexContainer>
-                <HomepageImage
-                    height={800}
-                    src="https://zapodaj.net/images/52ef1b6c73d26.png"
-                    alt=""
-                />
-                <HomepageTextContainerStyled>
-                    <HomepageTextStyled>
-                        Your Ultimate Event Planning Companion! Plan, Visualize,
-                        and Share Your Events Like Never Before Are you tired of
-                        juggling multiple apps to manage your events? Say
-                        goodbye to the chaos and welcome the all-in-one solution
-                        that simplifies event planning
-                    </HomepageTextStyled>
-                </HomepageTextContainerStyled>
-            </FlexContainer>
-            <FlexContainer>
-                <HomepageTextContainerStyled>
-                    <HomepageTextStyled>
-                        Managing groups with the ability to add people and
-                        assign them permissions is crucial for streamlining
-                        collaboration and maintaining security. Whether it's in
-                        the workplace, on social media, or within an
-                        organization, group management tools allow you to
-                        control access, delegate responsibilities, and
-                        facilitate efficient communication. By adding
-                        individuals and assigning specific permissions to them,
-                        you can ensure that the right people have the right
-                        level of access, making group collaboration more
-                        organized and secure
-                    </HomepageTextStyled>
-                </HomepageTextContainerStyled>
-                <HomepageImage
-                    width={1000}
-                    src="https://zapodaj.net/images/1cafedbe896fe.png"
-                    alt=""
-                />
-            </FlexContainer>
-
-            <FlexContainer>
-                <HomepageTextContainerStyled>
-                    <HomepageTextStyled>
-                        Browse through timelines!
-                    </HomepageTextStyled>
-                </HomepageTextContainerStyled>
-                <HomepageImage
-                    src="https://zapodaj.net/images/5b98740da19bf.png"
-                    alt=""
-                />
-            </FlexContainer> */}
+            <TestTimeline items={eventss} />
         </HomepageContainerStyled>
     )
 }

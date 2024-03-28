@@ -17,9 +17,9 @@ export const DefaultParameters: Parameters = {
     rootMargin: 50,
     branchWidth: 10,
     branchHeight: 70,
-    dataFontSize: 30,
+    dataFontSize: 15,
     iconSize: 70,
-    textMaxWidth: 600,
+    textMaxWidth: 400,
 }
 
 type TimelineChartContextProps = {

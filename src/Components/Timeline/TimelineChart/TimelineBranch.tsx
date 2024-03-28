@@ -9,10 +9,7 @@ type BranchProps = {
     timelineEvent: TimelineEvent
     direction: 'left' | 'right'
 }
-export default function TimelineBranch({
-    direction,
-    timelineEvent,
-}: BranchProps) {
+export default function TimelineBranch({ direction, timelineEvent }: BranchProps) {
     const { parameters } = useTimelineChartContext()
 
     const iconStyle = {
@@ -31,18 +28,14 @@ export default function TimelineBranch({
             <TimelineData
                 timelineEvent={timelineEvent}
                 display={direction === 'left'}
+                direction={direction}
             />
-            <TimelineBranchCircle
-                display={direction === 'left'}
-                direction="left"
-            />
-            <TimelineBranchCircle
-                display={direction === 'right'}
-                direction="right"
-            />
+            <TimelineBranchCircle display={direction === 'left'} direction="left" />
+            <TimelineBranchCircle display={direction === 'right'} direction="right" />
             <TimelineData
                 timelineEvent={timelineEvent}
                 display={direction === 'right'}
+                direction={direction}
             />
             <EventIconComponent
                 eventIcon={timelineEvent.eventIcon}

@@ -44,9 +44,7 @@ export default function GroupSearch({ timeline }: Props) {
                 groupId: newValue?.group.id,
                 timelineId: timeline.id,
             })
-        const permissionGroup = groups.filter(
-            (value) => value.id === newValue.group.id
-        )
+        const permissionGroup = groups.filter((value) => value.id === newValue.group.id)
         if (permissionGroup.length > 0) {
             const thisGroup = permissionGroup.at(0)
             if (thisGroup !== undefined) {
@@ -66,12 +64,9 @@ export default function GroupSearch({ timeline }: Props) {
                 handleValueChange(newValue)
             }}
             defaultValue={getDefaultValue()}
-            sx={{ width: 400 }}
+            fullWidth
             renderInput={(params) => (
-                <TextField
-                    {...params}
-                    label="Choose group with browse permission"
-                />
+                <TextField {...params} label="Choose group with browse permission" />
             )}
         />
     )

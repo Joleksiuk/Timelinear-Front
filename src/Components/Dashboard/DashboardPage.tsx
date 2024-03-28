@@ -7,7 +7,7 @@ export const PageContainerStyled = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 100px;
+    padding: 1vw;
 `
 export default function DashboardPage() {
     return (

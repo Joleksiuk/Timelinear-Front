@@ -13,8 +13,7 @@ export const ImagesFlexContainer = styled.div`
 export const HomepageContainerStyled = styled.div`
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    gap: 50px;
+    justify-content: center;
 `
 
 export const HomepageTextStyled = styled.div`

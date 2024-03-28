@@ -51,13 +51,8 @@ export default function TimelineList() {
                     <CircularProgress />
                 ) : (
                     timelines
-                        .slice(
-                            page * rowsPerPage,
-                            page * rowsPerPage + rowsPerPage
-                        )
-                        .map((timeline) => (
-                            <TimelineWidget timeline={timeline} />
-                        ))
+                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        .map((timeline) => <TimelineWidget timeline={timeline} />)
                 )}
             </TimelinesContainerStyled>
         </ContainerStyled>

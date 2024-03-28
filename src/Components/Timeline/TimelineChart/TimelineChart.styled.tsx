@@ -47,7 +47,7 @@ export const ElementsStyled = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
+    width: 50vw;
 `
 
 export const BranchContainerStyled = styled.div`
@@ -107,13 +107,13 @@ export const EventDataContainer = styled.div<BaseProps>`
 type TextProps = {
     textFontSize: number
     maxWidth?: number
+    direction: 'left' | 'right'
 } & BaseProps
 
 export const TextBase = styled.div<TextProps>`
     user-select: ${(props) => (props.display ? 'text' : 'none')};
     -webkit-user-select: ${(props) => (props.display ? 'text' : 'none')};
     -ms-user-select: ${(props) => (props.display ? 'text' : 'none')};
-    max-width: 500px;
     word-wrap: break-word;
 `
 export const DateStyled = styled(TextBase)<TextProps>`
@@ -123,12 +123,14 @@ export const DateStyled = styled(TextBase)<TextProps>`
 export const EventNameStyled = styled(TextBase)<TextProps>`
     color: ${(props) => (props.display ? '#4c58aa' : '#121529')};
     font-size: ${(props) => props.textFontSize * 1.5}px;
-    max-width: 500px;
+    max-width: 300px;
     word-wrap: break-word;
+    text-align: ${(props) => props.direction};
 `
 export const DescriptionStyled = styled(TextBase)<TextProps>`
     color: ${(props) => (props.display ? '#5d6074' : '#121529')};
     font-size: ${(props) => props.textFontSize}px;
-    max-width: ${(props) => (props.maxWidth ? `${props.maxWidth}px` : '600px')};
+    max-width: 300px;
     word-wrap: break-word;
+    text-align: ${(props) => props.direction};
 `

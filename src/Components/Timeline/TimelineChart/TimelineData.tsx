@@ -10,9 +10,10 @@ import { useTimelineChartContext } from './TimelineChartProvider'
 type Props = {
     timelineEvent: TimelineEvent
     display: boolean
+    direction: 'left' | 'right'
 }
 
-export default function TimelineData({ timelineEvent, display }: Props) {
+export default function TimelineData({ timelineEvent, display, direction }: Props) {
     const { parameters } = useTimelineChartContext()
 
     return (
@@ -20,6 +21,7 @@ export default function TimelineData({ timelineEvent, display }: Props) {
             <EventNameStyled
                 display={display}
                 textFontSize={parameters.dataFontSize}
+                direction={direction}
             >
                 {timelineEvent.date?.date()}-{timelineEvent.date?.month()}-
                 {timelineEvent.date?.year()}
@@ -27,6 +29,7 @@ export default function TimelineData({ timelineEvent, display }: Props) {
             <DateStyled
                 textFontSize={parameters.dataFontSize}
                 display={display}
+                direction={direction}
             >
                 {timelineEvent.eventName}
             </DateStyled>
@@ -34,6 +37,7 @@ export default function TimelineData({ timelineEvent, display }: Props) {
                 textFontSize={parameters.dataFontSize}
                 display={display}
                 maxWidth={parameters.textMaxWidth}
+                direction={direction}
             >
                 {timelineEvent.description}
             </DescriptionStyled>

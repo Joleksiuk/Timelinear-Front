@@ -1,4 +1,3 @@
-import TimelineChart from './TimelineChart/TimelineChart'
 import CreateEventForm from '../TimeEvent/CreateTimeEvent/CreateEventForm'
 import {
     EventCreationContainer,
@@ -15,22 +14,12 @@ import CircularProgress from '@mui/material/CircularProgress'
 import { useState } from 'react'
 import { TimeEvent } from '../TimeEvent/types'
 import Button from '@mui/material/Button'
-import { Group } from '../Group/GroupTypes'
 import { Divider, Typography } from '@mui/material'
 import GroupSearch from '@/Components/Group/Search/GroupSearch'
-import { getCurrentUser } from '@/Services/AuthService'
-import TimelineOptionDropdown from './TimelineOptionDropdown'
 import useResponsiveParameters from './TimelineChart/UseResponsiveParameters'
+import TestTimeline from './TimelineChart/TestTimeline'
+import TimelinePageHeader from './TimelinePageHeader'
 
-const timelineChartParameters = {
-    rootCircleRadius: 100,
-    branchCircleRadius: 40,
-    rootMargin: 50,
-    branchWidth: 20,
-    branchHeight: 200,
-    dataFontSize: 30,
-    iconSize: 70,
-}
 export default function Timeline() {
     const { canEdit, timeline, isLoadingData, addEventToTimeline } = useSingleTimelineContext()
     const [eventSearchValue, setEventSearchValue] = useState<TimeEvent>()
@@ -74,31 +63,12 @@ export default function Timeline() {
                         {canEdit && <GroupSearch timeline={timeline} />}
                     </HeaderContainerStyled>
                     <MainContainerStyled>
-                        {canEdit && (
-                            <MainContainerStyled>
-                                <Divider orientation="horizontal" flexItem>
-                                    Add event to timeline
-                                </Divider>
-                                <EventCreationContainer>
-                                    <CreateEventForm isInModal={false} />
-                                    <Divider orientation="vertical" flexItem>
-                                        OR
-                                    </Divider>
-                                    <GridColumnContainer>
-                                        <TimeEventsSearch setEventValue={setEventSearchValue} />
-                                        <Button
-                                            variant="contained"
-                                            onClick={handleAddEventToTimeline}
-                                        >
-                                            Add to timeline
-                                        </Button>
-                                    </GridColumnContainer>
-                                </EventCreationContainer>
-                            </MainContainerStyled>
-                        )}
-                        <TimelineChart
-                            parameters={responsiveParameters}
-                            events={
+                        <Divider orientation="horizontal" flexItem style={{ padding: '20px' }}>
+                            Add event to timeline
+                        </Divider>
+                        <TimelinePageHeader />
+                        <TestTimeline
+                            items={
                                 timeline
                                     ? TimelineUtils.mapTimeEventsToTimelineEvents(
                                           timeline.timeEvents
