@@ -1,5 +1,5 @@
 import { HomepageContainerStyled } from './HomepageLayout.styled'
-import TestTimeline from '../Timeline/TimelineChart/TestTimeline'
+import TestTimeline from '../Timeline/TimelineChart/TimelineChart'
 import { TimelineEvent } from '../Timeline/TimelineEvent'
 import dayjs from 'dayjs'
 

@@ -1,9 +1,8 @@
 import { ItemStyled } from './TimelineList.styled'
 import { TimelineModel } from '../TimelineProvider/types'
 import { useNavigate } from 'react-router-dom'
-import TimelineUtils from '../TimelineUtils'
 import { Typography } from '@mui/material'
-import TimelineTestWidget from '../TimelineChart/TestTimelineWidget'
+import TimelineWidgetComponent from '../TimelineChart/Widget/TimelineWidgetComponent'
 
 type Props = {
     timeline: TimelineModel
@@ -14,7 +13,7 @@ export default function TimelineWidget({ timeline }: Props) {
     const handleOnClick = () => {
         navigate(`/timeline/${timeline.id}`)
     }
-    function cutDescription(description: string, maxLen: number = 50): string {
+    function cutDescription(description: string, maxLen: number = 100): string {
         if (description.length <= maxLen) return description
         let trimmedDescription = description
             .substring(0, maxLen + 1)
@@ -44,16 +43,16 @@ export default function TimelineWidget({ timeline }: Props) {
             </Typography>
             <Typography
                 sx={{
-                    color: '#ffffff',
-                    fontSize: '10px',
+                    color: '#bac3f0',
+                    fontSize: '15px',
                     wordWrap: 'break-word',
                     marginBottom: '10px',
                 }}
             >
                 {cutDescription(timeline.description)}
             </Typography>
-            <TimelineTestWidget
-                items={TimelineUtils.mapTimeEventsToTimelineEvents(timeline.timeEvents)}
+            <TimelineWidgetComponent
+               timeline={timeline}
             />
         </ItemStyled>
     )

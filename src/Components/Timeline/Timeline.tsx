@@ -1,23 +1,17 @@
-import CreateEventForm from '../TimeEvent/CreateTimeEvent/CreateEventForm'
 import {
-    EventCreationContainer,
-    GridColumnContainer,
     HeaderContainer,
     HeaderContainerStyled,
     MainContainerStyled,
 } from './Timeline.styled'
 import { TimeEventsProvider } from '../TimeEventList/TimeEventsProvider'
-import TimeEventsSearch from '../TimeEvent/TimeEventsSearch/TimeEventsSearch'
 import { useSingleTimelineContext } from './TimelineProvider/SingleTimelineProvider'
 import TimelineUtils from './TimelineUtils'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useState } from 'react'
 import { TimeEvent } from '../TimeEvent/types'
-import Button from '@mui/material/Button'
 import { Divider, Typography } from '@mui/material'
 import GroupSearch from '@/Components/Group/Search/GroupSearch'
-import useResponsiveParameters from './TimelineChart/UseResponsiveParameters'
-import TestTimeline from './TimelineChart/TestTimeline'
+import TestTimeline from './TimelineChart/TimelineChart'
 import TimelinePageHeader from './TimelinePageHeader'
 
 export default function Timeline() {
@@ -29,8 +23,6 @@ export default function Timeline() {
             addEventToTimeline(eventSearchValue)
         }
     }
-    const responsiveParameters = useResponsiveParameters()
-
     return (
         <div>
             {isLoadingData ? (
