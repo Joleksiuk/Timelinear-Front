@@ -23,8 +23,13 @@ export default function TimelinePageHeader() {
     return (
         <>
             {canEdit && (
-                <div style={{ width: '90%' }}>
-                    <Accordion style={{ backgroundColor: '#24263d' }}>
+                <div style={{ width: '100%' }}>
+                    <Accordion
+                        style={{
+                            backgroundColor: '#24263d',
+                            boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
+                        }}
+                    >
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1-content"
@@ -40,7 +45,12 @@ export default function TimelinePageHeader() {
                             </MainContainerStyled>
                         </AccordionDetails>
                     </Accordion>
-                    <Accordion style={{ backgroundColor: '#24263d' }}>
+                    <Accordion
+                        style={{
+                            backgroundColor: '#24263d',
+                            boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
+                        }}
+                    >
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel2-content"

@@ -5,17 +5,13 @@ import { Divider, IconButton, TablePagination } from '@mui/material'
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft'
 import { months } from './CalendarConstants'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSortContext } from '../Sorting/SortingProvider'
 import { sortingFunctionMap } from '../Sorting/SortingUtils'
 import TimeEventListHeader from '../TimeEventList/TimeEventListHeader'
 import { useFilterContext } from '../Filtering/FilterProvider'
 import { isEventInCurrentDate } from './CalendarFunctions'
 import CalendarCell from './CalendarCell'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-
-import TableRow from '@mui/material/TableRow'
 
 const MAX_EVENTS_PER_PAGE = 5
 
@@ -52,7 +48,7 @@ export default function Calendar() {
     const days = Array.from({ length: daysInMonth }, (_, i) => i + 1)
 
     const { timeEvents } = useTimeEventsContext()
-    const { sortingKey } = useSortContext()
+    const { sortingKey, sortBy, sortType } = useSortContext()
     const { filterByCategory, filterByText, filterByDate } = useFilterContext()
 
     const renderBodyCellsForRow = (day: number, index: number) => {

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useGroupsContext } from '../GroupsProvider'
 import {
     CircularProgress,
@@ -22,9 +22,9 @@ export default function GroupsList() {
 
     const [page, setPage] = useState(0)
     const [rowsPerPage, setRowsPerPage] = useState(10)
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 
-    const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - groups.length) : 0
+    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - groups.length) : 0
 
     const handleChangePage = (
         event: React.MouseEvent<HTMLButtonElement> | null,
@@ -41,13 +41,31 @@ export default function GroupsList() {
     }
     const handleOnAddUser = (group: Group) => {}
 
+    const handleResize = () => {
+        setScreenWidth(window.innerWidth - 100)
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize)
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }, [])
+
     return (
         <div>
             {isLoadingData ? (
                 <CircularProgress />
             ) : (
-                <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 1000 }}>
+                <TableContainer
+                    component={Paper}
+                    sx={{
+                        overflowX: 'auto',
+                        maxWidth: screenWidth,
+                        boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
+                    }}
+                >
+                    <Table>
                         <TableBody>
                             <TableCell component="th"></TableCell>
                             <TableCell component="th">Name</TableCell>
@@ -66,19 +84,12 @@ export default function GroupsList() {
                                     <TableCellStyled width="6%">
                                         {index + page * rowsPerPage}
                                     </TableCellStyled>
-                                    <TableCellStyled width="20%">
-                                        {row.name}
-                                    </TableCellStyled>
-                                    <TableCellStyled width="25%">
-                                        {row.description}
-                                    </TableCellStyled>
+                                    <TableCellStyled width="20%">{row.name}</TableCellStyled>
+                                    <TableCellStyled width="25%">{row.description}</TableCellStyled>
                                     <TableCellStyled width="25%">
                                         <UsersContainerStyled>
                                             {row?.users.map((user) => (
-                                                <GroupUserComponent
-                                                    user={user}
-                                                    group={row}
-                                                />
+                                                <GroupUserComponent user={user} group={row} />
                                             ))}
                                             <AddUserDialog group={row} />
                                         </UsersContainerStyled>
@@ -97,11 +108,7 @@ export default function GroupsList() {
                         <TableFooter>
                             <TableRow>
                                 <TablePagination
-                                    rowsPerPageOptions={[
-                                        10,
-                                        25,
-                                        { label: 'All', value: -1 },
-                                    ]}
+                                    rowsPerPageOptions={[10, 25, { label: 'All', value: -1 }]}
                                     colSpan={6}
                                     count={groups.length}
                                     rowsPerPage={rowsPerPage}
@@ -113,9 +120,7 @@ export default function GroupsList() {
                                         native: true,
                                     }}
                                     onPageChange={handleChangePage}
-                                    onRowsPerPageChange={
-                                        handleChangeRowsPerPage
-                                    }
+                                    onRowsPerPageChange={handleChangeRowsPerPage}
                                     ActionsComponent={TablePaginationActions}
                                 />
                             </TableRow>

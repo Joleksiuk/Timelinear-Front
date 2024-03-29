@@ -1,29 +1,23 @@
-import { Toolbar, IconButton, Typography, Link, Button } from '@mui/material'
+import { Toolbar, IconButton, Typography, Link } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import { AppBar } from './Dashboard.styled'
-import TimeEventListService from '../TimeEventList/TimeEventListService'
-import CategoryService from '../Category/CategoryService'
-import GroupsService from '../Group/GroupsService'
-import TimelineService from '../Timeline/TimelineProvider/TimelineService'
-import { useNavigate } from 'react-router-dom'
 import { getCurrentUser } from '@/Services/AuthService'
 import LoggedAccountDropdown from '../Menus/LoggedAccountDropdown'
 import NotLoggedAccountDropdown from '../Menus/NotLoggedAccountDropdown'
+import styled from 'styled-components'
 
 type Props = {
     toggleDrawer: () => void
     open: boolean
 }
-
+const ContainerStyled = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+`
 export default function DashboardNavbar({ toggleDrawer, open }: Props) {
-    const navigate = useNavigate()
-
     return (
-        <AppBar
-            position="absolute"
-            open={open}
-            sx={{ backgroundColor: '#23263d' }}
-        >
+        <AppBar position="absolute" open={open} sx={{ backgroundColor: '#23263d' }}>
             <Toolbar>
                 <IconButton
                     edge="start"
@@ -37,22 +31,18 @@ export default function DashboardNavbar({ toggleDrawer, open }: Props) {
                 >
                     <MenuIcon />
                 </IconButton>
-                <Typography
-                    component="h1"
-                    variant="h6"
-                    color="inherit"
-                    noWrap
-                    sx={{ flexGrow: 1 }}
-                >
-                    <Link color="inherit" href="/">
-                        Timelinear
-                    </Link>
-                </Typography>
-                {getCurrentUser() !== null ? (
-                    <LoggedAccountDropdown />
-                ) : (
-                    <NotLoggedAccountDropdown />
-                )}
+                <ContainerStyled>
+                    <Typography component="h1" variant="h6" color="inherit" noWrap>
+                        <Link color="inherit" href="/">
+                            Timelinear
+                        </Link>
+                    </Typography>
+                    {getCurrentUser() !== null ? (
+                        <LoggedAccountDropdown />
+                    ) : (
+                        <NotLoggedAccountDropdown />
+                    )}
+                </ContainerStyled>
             </Toolbar>
         </AppBar>
     )

@@ -1,15 +1,6 @@
-import {
-    Alert,
-    AlertTitle,
-    IconButton,
-    TableRow,
-    TextField,
-} from '@mui/material'
+import { Alert, AlertTitle, IconButton, TableRow, TextField } from '@mui/material'
 import { TimeEvent } from '../TimeEvent/types'
-import {
-    EditButtonsContainerStyled,
-    TableCellStyled,
-} from './TimeEventsListStyled'
+import { EditButtonsContainerStyled, TableCellStyled } from './TimeEventsListStyled'
 import ClearIcon from '@mui/icons-material/Clear'
 import CheckIcon from '@mui/icons-material/Check'
 import { useTimeEventsContext } from './TimeEventsProvider'
@@ -17,15 +8,10 @@ import { useState } from 'react'
 import { Dayjs } from 'dayjs'
 import DateUtils from '@/Utils/DateUtils'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import {
-    LocalizationProvider,
-    DatePicker,
-    DateTimePicker,
-} from '@mui/x-date-pickers'
+import { LocalizationProvider, DatePicker, DateTimePicker } from '@mui/x-date-pickers'
 import IconSearchDialog from '../IconSearch/IconSearchDialog'
 import { EventIcon } from '../IconSearch/types'
 import { CategoryModel } from '../Category/Category.types'
-import CategoryComponent from '../Category/CategoryComponent'
 import CategoryEditComponent from '../Category/CategoryEditComponent'
 
 type Props = {
@@ -38,27 +24,18 @@ type Props = {
 const MAX_NAME_LENGTH = 50
 const MAX_DESCRIPTION_LENGTH = 255
 
-export default function TimeEventListEditedElement({
-    timeEvent,
-    index,
-    page,
-    rowsPerPage,
-}: Props) {
+export default function TimeEventListEditedElement({ timeEvent, index, page, rowsPerPage }: Props) {
     const { setCurrentlyEditedEvent, updateTimeEvent } = useTimeEventsContext()
     const [editedName, setEditedName] = useState<string>(timeEvent.name)
     const [descriptionError, setDescriptionError] = useState(false)
-    const [category, setCategory] = useState<CategoryModel | null>(
-        timeEvent.category
-    )
+    const [category, setCategory] = useState<CategoryModel | null>(timeEvent.category)
     const [categoryError, setCategoryError] = useState<boolean>(false)
     const [dateError, setDateError] = useState(false)
     const [eventIcon, setEventIcon] = useState<EventIcon>({
         source: timeEvent.iconSource,
         type: timeEvent.iconType,
     })
-    const [editedDescription, setEditedDescription] = useState<string>(
-        timeEvent.description
-    )
+    const [editedDescription, setEditedDescription] = useState<string>(timeEvent.description)
     const [nameError, setNameError] = useState(false)
     const [startDate, setStartDate] = useState<Dayjs | null>(
         DateUtils.stringToDayjsDate(timeEvent.startDate)
@@ -73,8 +50,7 @@ export default function TimeEventListEditedElement({
         updatedTimeEvent.description = editedDescription
         updatedTimeEvent.startDate =
             DateUtils.dayjsDateToString(startDate) || updatedTimeEvent.startDate
-        updatedTimeEvent.endDate =
-            DateUtils.dayjsDateToString(endDate) || updatedTimeEvent.endDate
+        updatedTimeEvent.endDate = DateUtils.dayjsDateToString(endDate) || updatedTimeEvent.endDate
         updatedTimeEvent.iconSource = eventIcon?.source
         updatedTimeEvent.iconType = eventIcon?.type
         updatedTimeEvent.category = category
@@ -96,9 +72,7 @@ export default function TimeEventListEditedElement({
 
     return (
         <TableRow key={timeEvent.id}>
-            <TableCellStyled width="6%">
-                {index + page * rowsPerPage}
-            </TableCellStyled>
+            <TableCellStyled width="6%">{index + page * rowsPerPage}</TableCellStyled>
             <TableCellStyled width="25%">
                 <TextField
                     label="Event Name"
@@ -167,17 +141,10 @@ export default function TimeEventListEditedElement({
                 )}
             </TableCellStyled>
             <TableCellStyled width="15%">
-                <IconSearchDialog
-                    eventIcon={eventIcon}
-                    setEventIcon={setEventIcon}
-                    text=""
-                />
+                <IconSearchDialog eventIcon={eventIcon} setEventIcon={setEventIcon} text="" />
             </TableCellStyled>
             <TableCellStyled width="15%">
-                <CategoryEditComponent
-                    category={timeEvent.category}
-                    setCategory={setCategory}
-                />
+                <CategoryEditComponent category={category} setCategory={setCategory} />
             </TableCellStyled>
             <TableCellStyled width="15%">
                 <EditButtonsContainerStyled>

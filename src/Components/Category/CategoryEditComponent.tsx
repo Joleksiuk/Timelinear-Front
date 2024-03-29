@@ -21,10 +21,7 @@ type Props = {
     setCategory: (category: CategoryModel | null) => void
 }
 
-export default function CategoryEditComponent({
-    category,
-    setCategory,
-}: Props) {
+export default function CategoryEditComponent({ category, setCategory }: Props) {
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
@@ -52,6 +49,7 @@ export default function CategoryEditComponent({
                         <CreateCategory
                             category={category}
                             setCategory={setCategory}
+                            handleClose={handleClose}
                         />
                     </Box>
                 </Fade>

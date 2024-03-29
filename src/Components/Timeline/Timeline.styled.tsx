@@ -14,12 +14,14 @@ export const MainContainerStyled = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 20px;
 `
 
 export const HeaderContainerStyled = styled.div`
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-direction: column;
     gap: 30px;
     margin-bottom: 50px;
@@ -40,4 +42,10 @@ export const GridColumnContainer = styled.div`
 export const HeaderContainer = styled.div`
     display: flex;
     justify-content: space-between;
+`
+
+export const ContentContainerStyled = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 `

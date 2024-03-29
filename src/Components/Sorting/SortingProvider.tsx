@@ -1,19 +1,10 @@
-import {
-    ReactNode,
-    createContext,
-    useContext,
-    useEffect,
-    useState,
-} from 'react'
+import { ReactNode, createContext, useContext, useEffect, useState } from 'react'
 import { TimeEvent } from '../TimeEvent/types'
 import { sortingFunctionMap } from './SortingUtils'
 
 export type SortingType = 'ASC' | 'DSC' | 'None'
 
-export type SortFunctionType = (
-    firstEvent: TimeEvent,
-    secondEvent: TimeEvent
-) => any
+export type SortFunctionType = (firstEvent: TimeEvent, secondEvent: TimeEvent) => any
 
 export type SortingOption =
     | 'Start Date ASC'
@@ -74,6 +65,7 @@ const SortProvider = ({ children }: Props) => {
             newSortingKey = `${sortBy} ${sortType}`
         }
         setSortingKey(newSortingKey)
+        console.log(newSortingKey)
     }, [sortBy, sortType])
 
     return (

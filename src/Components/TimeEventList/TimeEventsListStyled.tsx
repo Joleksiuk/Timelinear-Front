@@ -27,3 +27,13 @@ export const TimeEventListHeaderStyled = styled.div`
     flex-wrap: wrap;
     align-items: center;
 `
+export const StyledDate = styled.div`
+    display: flex;
+    flex-direction: column;
+    background-color: #282c3d;
+    color: #969ece;
+    border-radius: 5px;
+    display: inline-block;
+    width: auto;
+    padding: 10px;
+`

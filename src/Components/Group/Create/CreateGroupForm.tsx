@@ -9,11 +9,9 @@ import { useGroupsContext } from '../GroupsProvider'
 import { Group, GroupRequest } from '../GroupTypes'
 import GroupsService from '../GroupsService'
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
-    function Alert(props, ref) {
-        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
-    }
-)
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
+})
 
 const MAX_NAME_LENGTH = 50
 const MAX_DESCRIPTION_LENGTH = 255
@@ -69,10 +67,7 @@ export default function CreateEventForm() {
         return wrongInput
     }
 
-    const handleClose = (
-        event: React.SyntheticEvent | Event,
-        reason?: string
-    ) => {
+    const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
             return
         }
@@ -95,6 +90,8 @@ export default function CreateEventForm() {
                         }
                     }}
                     error={nameError}
+                    fullWidth
+                    sx={{ minWidth: '200px', maxWidth: '400px' }}
                 />
                 <TextField
                     label="Description"
@@ -108,25 +105,15 @@ export default function CreateEventForm() {
                         }
                     }}
                     error={descriptionError}
+                    fullWidth
+                    sx={{ minWidth: '200px', maxWidth: '400px' }}
                 />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleAddEvent()}
-                >
-                    Create Group
+                <Button variant="contained" color="primary" onClick={() => handleAddEvent()}>
+                    Create
                 </Button>
                 {groupAdded && (
-                    <Snackbar
-                        open={openSnackbar}
-                        autoHideDuration={2000}
-                        onClose={handleClose}
-                    >
-                        <Alert
-                            onClose={handleClose}
-                            severity="success"
-                            sx={{ width: '100%' }}
-                        >
+                    <Snackbar open={openSnackbar} autoHideDuration={2000} onClose={handleClose}>
+                        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                             Group created successfully!
                         </Alert>
                     </Snackbar>

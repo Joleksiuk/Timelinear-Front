@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import TextField from '@mui/material/TextField'
 import Autocomplete from '@mui/material/Autocomplete'
 import { useSortContext } from './SortingProvider'
@@ -22,9 +22,10 @@ const SortingOptions: string[] = [
 
 export default function SortingAutocomplete() {
     const { setSortType, setSortBy } = useSortContext() // Assuming useSortContext is properly typed
-
+    const [sort, setSort] = useState<string>('Default')
     const handleChange = (event: React.SyntheticEvent<Element, Event>, newValue: string | null) => {
         if (newValue) {
+            setSort(newValue)
             getSortType(newValue)
             getSortBy(newValue)
         }
@@ -49,7 +50,7 @@ export default function SortingAutocomplete() {
     return (
         <Autocomplete
             options={SortingOptions}
-            value={null} // Adjust this according to how you store/manage the selected value
+            value={sort}
             onChange={handleChange}
             renderInput={(params) => <TextField {...params} label="Sort by" variant="outlined" />}
             autoHighlight

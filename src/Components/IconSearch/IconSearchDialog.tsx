@@ -5,7 +5,7 @@ import { IconFormContainerStyled } from '../TimeEvent/CreateTimeEvent/CreateEven
 import EmojiPickerComponent from './EmojiPickerComponent'
 import IconSearch from './IconSearch'
 import { EventIcon } from './types'
-import { IconButtonContainerStyled } from './IconSearch.styled'
+import { FrontContainerStyled, IconButtonContainerStyled } from './IconSearch.styled'
 
 type Props = {
     eventIcon: EventIcon | undefined
@@ -58,10 +58,15 @@ export default function IconSearchDialog({
             >
                 <Fade in={open}>
                     <Box sx={style}>
-                        <IconButtonContainerStyled>
-                            <Typography>Chosen icon :</Typography>
-                            {<EventIconComponent eventIcon={eventIcon} />}
-                        </IconButtonContainerStyled>
+                        <FrontContainerStyled>
+                            <IconButtonContainerStyled>
+                                <Typography>Chosen icon :</Typography>
+                                {<EventIconComponent eventIcon={eventIcon} />}
+                            </IconButtonContainerStyled>
+                            <Button variant="contained" onClick={handleClose}>
+                                Ok
+                            </Button>
+                        </FrontContainerStyled>
                         <IconFormContainerStyled>
                             <EmojiPickerComponent setEventIcon={setEventIcon} />
                             <Typography>OR</Typography>

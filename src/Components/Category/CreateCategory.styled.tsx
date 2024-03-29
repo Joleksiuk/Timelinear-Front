@@ -8,11 +8,17 @@ export const CreateCategoryStyled = styled.div`
 
 export const CategoryContainerStyled = styled.div`
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 20px;
     &:hover {
         cursor: 'pointer';
     }
+`
+export const HorizontalContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 `
 
 type Props = {

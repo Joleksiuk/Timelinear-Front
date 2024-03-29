@@ -24,3 +24,8 @@ export const IconButtonContainerStyled = styled.div`
     align-items: center;
     gap: 30px;
 `
+export const FrontContainerStyled = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`

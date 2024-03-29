@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const EventFormContainerStyled = styled.div`
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     gap: 40px;
 `
 

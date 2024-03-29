@@ -63,6 +63,7 @@ export default function CreateCategoryDialog({
                         <CreateCategory
                             category={category}
                             setCategory={setCategory}
+                            handleClose={handleClose}
                         />
                     </Box>
                 </Fade>

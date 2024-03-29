@@ -1,4 +1,5 @@
 import {
+    ContentContainerStyled,
     HeaderContainer,
     HeaderContainerStyled,
     MainContainerStyled,
@@ -31,44 +32,47 @@ export default function Timeline() {
                 <div>No timeline with this exists!</div>
             ) : (
                 <TimeEventsProvider>
-                    <HeaderContainerStyled>
-                        <HeaderContainer>
+                    <ContentContainerStyled>
+                        <HeaderContainerStyled>
+                            <HeaderContainer>
+                                <Typography
+                                    sx={{
+                                        color: '#4c58aa',
+                                        fontSize: '40px',
+                                        wordWrap: 'break-word',
+                                    }}
+                                >
+                                    {timeline.name}
+                                </Typography>
+                            </HeaderContainer>
                             <Typography
                                 sx={{
-                                    color: '#4c58aa',
-                                    fontSize: '40px',
+                                    color: '#5d6074',
+                                    fontSize: '20px',
+                                    maxWidth: '500px',
                                     wordWrap: 'break-word',
                                 }}
                             >
-                                {timeline.name}
+                                {timeline.description}
                             </Typography>
-                        </HeaderContainer>
-                        <Typography
-                            sx={{
-                                color: '#5d6074',
-                                fontSize: '20px',
-                                wordWrap: 'break-word',
-                            }}
-                        >
-                            {timeline.description}
-                        </Typography>
-                        {canEdit && <GroupSearch timeline={timeline} />}
-                    </HeaderContainerStyled>
-                    <MainContainerStyled>
-                        <Divider orientation="horizontal" flexItem style={{ padding: '20px' }}>
-                            Add event to timeline
-                        </Divider>
-                        <TimelinePageHeader />
-                        <TestTimeline
-                            items={
-                                timeline
-                                    ? TimelineUtils.mapTimeEventsToTimelineEvents(
-                                          timeline.timeEvents
-                                      )
-                                    : []
-                            }
-                        />
-                    </MainContainerStyled>
+                            {canEdit && <GroupSearch timeline={timeline} />}
+                            <Divider orientation="horizontal" flexItem>
+                                Add event to timeline
+                            </Divider>
+                            <TimelinePageHeader />
+                        </HeaderContainerStyled>
+                        <MainContainerStyled>
+                            <TestTimeline
+                                items={
+                                    timeline
+                                        ? TimelineUtils.mapTimeEventsToTimelineEvents(
+                                              timeline.timeEvents
+                                          )
+                                        : []
+                                }
+                            />
+                        </MainContainerStyled>
+                    </ContentContainerStyled>
                 </TimeEventsProvider>
             )}
         </div>
