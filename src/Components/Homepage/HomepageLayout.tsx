@@ -2,33 +2,34 @@ import { HomepageContainerStyled } from './HomepageLayout.styled'
 import TestTimeline from '../Timeline/TimelineChart/TimelineChart'
 import { TimelineEvent } from '../Timeline/TimelineEvent'
 import dayjs from 'dayjs'
+import Banner from './Banner'
 
-const eventss: TimelineEvent[] = [
+const additionalEvents: TimelineEvent[] = [
     {
         id: 1,
-        date: dayjs('2021-10-27T23:23:26'),
-        eventName: 'Team Retreat',
-        description: 'Launching the new version of our flagship product.',
+        date: dayjs('2024-08-15T10:30:00'),
+        eventName: 'Company Anniversary Celebration',
+        description: 'Celebrating another successful year in business.',
         eventIcon: {
             type: 'emoji',
-            source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f48e.png',
+            source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f43c.png',
         },
     },
     {
         id: 2,
-        date: dayjs('2020-07-01T12:15:10'),
-        eventName: 'Product Launch',
-        description: 'Launching an international marketing campaign.',
+        date: dayjs('2024-11-20T15:45:00'),
+        eventName: 'Annual Charity Gala',
+        description: 'Raising funds for local community projects.',
         eventIcon: {
             type: 'emoji',
-            source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f48e.png',
+            source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f608.png',
         },
     },
     {
         id: 3,
-        date: dayjs('2023-02-11T01:41:39'),
-        eventName: 'New Office Opening',
-        description: 'Launching the new version of our flagship product.',
+        date: dayjs('2025-02-28T09:00:00'),
+        eventName: 'Product Showcase Exhibition',
+        description: 'Introducing our latest innovations to the market.',
         eventIcon: {
             type: 'emoji',
             source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f48e.png',
@@ -36,19 +37,19 @@ const eventss: TimelineEvent[] = [
     },
     {
         id: 4,
-        date: dayjs('2022-03-26T16:09:51'),
-        eventName: 'Software Update',
-        description: 'Launching the new version of our flagship product.',
+        date: dayjs('2025-06-10T14:15:00'),
+        eventName: 'Employee Appreciation Day',
+        description: 'Recognizing the hard work and dedication of our team.',
         eventIcon: {
             type: 'emoji',
-            source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f48e.png',
+            source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f30f.png',
         },
     },
     {
         id: 5,
-        date: dayjs('2021-05-24T21:27:35'),
-        eventName: 'Charity Event',
-        description: 'Educational webinar on industry trends.',
+        date: dayjs('2025-09-05T11:00:00'),
+        eventName: 'Technology Conference',
+        description: 'Exploring the latest trends and advancements in technology.',
         eventIcon: {
             type: 'emoji',
             source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f48e.png',
@@ -56,39 +57,25 @@ const eventss: TimelineEvent[] = [
     },
     {
         id: 6,
-        date: dayjs('2022-06-15T11:56:49'),
-        eventName: 'Product Launch',
-        description: 'Launching an international marketing campaign.',
+        date: dayjs('2026-01-15T13:30:00'),
+        eventName: 'New Product Launch',
+        description: 'Unveiling our highly anticipated new product to the world.',
         eventIcon: {
             type: 'emoji',
-            source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f48e.png',
-        },
-    },
-    {
-        id: 7,
-        date: dayjs('2021-03-12T13:49:29'),
-        eventName: 'Marketing Campaign',
-        description: 'Launching an international marketing campaign.',
-        eventIcon: {
-            type: 'emoji',
-            source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f48e.png',
-        },
-    },
-    {
-        id: 8,
-        date: dayjs('2020-04-04T09:34:25'),
-        eventName: 'Marketing Campaign',
-        description: "This year's biggest industry conference.",
-        eventIcon: {
-            type: 'emoji',
-            source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f48e.png',
+            source: 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f377.png',
         },
     },
 ]
 
+const eventss: TimelineEvent[] = [...additionalEvents]
+
 export default function HomepageLayout() {
     return (
         <HomepageContainerStyled>
+            <Banner
+                title="Welcome to Timelinear!"
+                description="Create time events, manage them, add the to timelines and enjoy!"
+            />
             <TestTimeline items={eventss} />
         </HomepageContainerStyled>
     )

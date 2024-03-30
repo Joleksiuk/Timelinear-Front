@@ -14,6 +14,7 @@ import { Divider, Typography } from '@mui/material'
 import GroupSearch from '@/Components/Group/Search/GroupSearch'
 import TestTimeline from './TimelineChart/TimelineChart'
 import TimelinePageHeader from './TimelinePageHeader'
+import TimelineActionsDropdown from './TimelineDropdown'
 
 export default function Timeline() {
     const { canEdit, timeline, isLoadingData, addEventToTimeline } = useSingleTimelineContext()
@@ -29,7 +30,15 @@ export default function Timeline() {
             {isLoadingData ? (
                 <CircularProgress />
             ) : timeline === null || timeline === undefined ? (
-                <div>No timeline with this exists!</div>
+                <Typography
+                    sx={{
+                        color: '#4c58aa',
+                        fontSize: '40px',
+                        wordWrap: 'break-word',
+                    }}
+                >
+                    No timeline with this exists!
+                </Typography>
             ) : (
                 <TimeEventsProvider>
                     <ContentContainerStyled>
@@ -44,6 +53,7 @@ export default function Timeline() {
                                 >
                                     {timeline.name}
                                 </Typography>
+                                <TimelineActionsDropdown timeline={timeline} />
                             </HeaderContainer>
                             <Typography
                                 sx={{
@@ -55,7 +65,7 @@ export default function Timeline() {
                             >
                                 {timeline.description}
                             </Typography>
-                            {canEdit && <GroupSearch timeline={timeline} />}
+                            {/* {canEdit && <GroupSearch timeline={timeline} />} */}
                             <Divider orientation="horizontal" flexItem>
                                 Add event to timeline
                             </Divider>

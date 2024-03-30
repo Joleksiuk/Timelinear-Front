@@ -20,9 +20,7 @@ export default function DashboardSidebarItems() {
                             </ListItemIcon>
                             <ListItemText primary="Calendar" />
                         </ListItemButton>
-                        <ListItemButton
-                            onClick={() => navigate('/timelinesList')}
-                        >
+                        <ListItemButton onClick={() => navigate('/timelinesList')}>
                             <ListItemIcon>
                                 <TimelineIcon />
                             </ListItemIcon>
@@ -34,12 +32,12 @@ export default function DashboardSidebarItems() {
                             </ListItemIcon>
                             <ListItemText primary="My events" />
                         </ListItemButton>
-                        <ListItemButton onClick={() => navigate('/groups')}>
+                        {/* <ListItemButton onClick={() => navigate('/groups')}>
                             <ListItemIcon>
                                 <GroupIcon />
                             </ListItemIcon>
                             <ListItemText primary="Groups" />
-                        </ListItemButton>
+                        </ListItemButton> */}
                     </React.Fragment>
                 </>
             )}
