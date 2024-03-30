@@ -1,6 +1,5 @@
-import { Box, Toolbar, Container } from '@mui/material'
+import { Box, Toolbar } from '@mui/material'
 import { Outlet } from 'react-router-dom'
-import { Colors } from '@/Constants/Colors'
 import styled from 'styled-components'
 
 export const PageContainerStyled = styled.div`
@@ -14,7 +13,7 @@ export default function DashboardPage() {
         <Box
             component="main"
             sx={{
-                backgroundColor: Colors.pageBackground,
+                backgroundImage: 'linear-gradient(to right, #121529, #272f5c)',
                 flexGrow: 1,
                 minHeight: '100vh',
             }}

@@ -56,10 +56,7 @@ export default function TimeEventsList() {
             {isLoadingData ? (
                 <CircularProgress />
             ) : (
-                <TableContainer
-                    component={Paper}
-                    sx={{ overflowX: 'auto', maxWidth: screenWidth - 10 }}
-                >
+                <TableContainer sx={{ overflowX: 'auto', maxWidth: screenWidth - 10 }}>
                     <Table aria-label="custom pagination table">
                         <TableBody>
                             <TableRow>

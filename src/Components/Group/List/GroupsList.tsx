@@ -76,7 +76,7 @@ export default function GroupsList() {
                                       page * rowsPerPage + rowsPerPage
                                   )
                                 : groups
-                            )?.map((row, index) => (
+                            )?.map((row) => (
                                 <TableRow key={row.id}>
                                     <TableCellStyled>
                                         <ContainerStyled>
