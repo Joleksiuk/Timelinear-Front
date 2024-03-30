@@ -25,12 +25,18 @@ export const BodyCellContentContainer = styled.div`
     gap: 20px;
 `
 
+export const EmptyCell = styled.td`
+    background-color: transparent;
+    height: 50px;
+    overflow: hidden;
+`
+
 export const BodyCell = styled.td<BodyCellProps>`
     background-color: ${(props) => props?.categoryColor || '#887a96ef'};
     padding: 8px;
     text-align: center;
     border: 1px solid #23263d;
-    min-height: 50px;
+    height: 50px;
     overflow: hidden;
     border-radius: 15px;
     box-shadow:

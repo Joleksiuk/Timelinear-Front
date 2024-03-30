@@ -1,4 +1,4 @@
-import { BodyCell, CalendarTable, DayCell, HeaderContainerStyled } from './Calendar.styled'
+import { CalendarTable, DayCell, EmptyCell, HeaderContainerStyled } from './Calendar.styled'
 import { useTimeEventsContext } from '../TimeEventList/TimeEventsProvider'
 import dayjs from 'dayjs'
 import { Divider, IconButton, TablePagination } from '@mui/material'
@@ -12,6 +12,7 @@ import TimeEventListHeader from '../TimeEventList/TimeEventListHeader'
 import { useFilterContext } from '../Filtering/FilterProvider'
 import { isEventInCurrentDate } from './CalendarFunctions'
 import CalendarCell from './CalendarCell'
+import { TimeEvent } from '../TimeEvent/types'
 
 const MAX_EVENTS_PER_PAGE = 5
 
@@ -51,41 +52,57 @@ export default function Calendar() {
     const { sortingKey, sortBy, sortType } = useSortContext()
     const { filterByCategory, filterByText, filterByDate } = useFilterContext()
 
+    const [sortedAndFilteredEvents, setSortedAndFilteredEvents] = useState<TimeEvent[]>([])
+
+    useEffect(() => {
+        const filteredEvents = timeEvents
+            .filter(filterByText)
+            .filter(filterByCategory)
+            .filter(filterByDate)
+            .sort(sortingFunctionMap[sortingKey])
+            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+
+        setSortedAndFilteredEvents(filteredEvents)
+    }, [timeEvents, filterByText, filterByCategory, filterByDate, sortingKey, page, rowsPerPage])
+
     const renderBodyCellsForRow = (day: number, index: number) => {
         const bodyCells: any = []
         bodyCells.push(<DayCell aria-colspan={1}>{day}</DayCell>)
 
-        timeEvents
-            .sort(sortingFunctionMap[sortingKey])
-            .filter(filterByText)
-            .filter(filterByCategory)
-            .filter(filterByDate)
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .forEach((timeEvent) => {
-                if (isEventInCurrentDate(day, timeEvent, currentYear, currentMonth)) {
-                    let currentDay = day
-                    const consecutiveMarkedDays = [day]
-                    while (
-                        index + 1 < daysInMonth &&
-                        isEventInCurrentDate(currentDay + 1, timeEvent, currentYear, currentMonth)
-                    ) {
-                        consecutiveMarkedDays.push(currentDay + 1)
-                        currentDay++
-                    }
+        const eventsOnCurrentDay = sortedAndFilteredEvents.filter((timeEvent) =>
+            isEventInCurrentDate(day, timeEvent, currentYear, currentMonth)
+        )
 
-                    bodyCells.push(
-                        <CalendarCell
-                            colSpan={1}
-                            timeEvent={timeEvent}
-                            day={day}
-                            daysInMonth={daysInMonth}
-                            isVertical
-                        />
+        if (eventsOnCurrentDay.length > 0) {
+            eventsOnCurrentDay.forEach((eventOnCurrentDay) => {
+                let currentDay = day
+                const consecutiveMarkedDays = [day]
+                while (
+                    index + 1 < daysInMonth &&
+                    isEventInCurrentDate(
+                        currentDay + 1,
+                        eventOnCurrentDay,
+                        currentYear,
+                        currentMonth
                     )
-                } else {
-                    bodyCells.push(<BodyCell key={day} colSpan={1} categoryColor={'#121529'} />)
+                ) {
+                    consecutiveMarkedDays.push(currentDay + 1)
+                    currentDay++
                 }
+
+                bodyCells.push(
+                    <CalendarCell
+                        colSpan={1}
+                        timeEvent={eventOnCurrentDay}
+                        day={day}
+                        daysInMonth={daysInMonth}
+                        isVertical
+                    />
+                )
             })
+        } else {
+            bodyCells.push(<EmptyCell key={day} colSpan={1} />)
+        }
 
         return bodyCells
     }
