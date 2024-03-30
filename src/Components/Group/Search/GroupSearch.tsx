@@ -32,25 +32,29 @@ export default function GroupSearch({ timeline }: Props) {
     const mapGroupsToOption = (): Array<GroupOption> => {
         return groups.map((group) => {
             return {
-                label: group.name,
+                label: group?.name || 'None',
                 group: group,
             }
         })
     }
 
     const handleValueChange = async (newValue: GroupOption) => {
-        if (newValue !== undefined)
+        if (newValue !== undefined) {
             await TimelineService.setAllowedToBrowseGroup({
-                groupId: newValue?.group.id,
+                groupId: newValue?.group?.id || null,
                 timelineId: timeline.id,
             })
-        const permissionGroup = groups.filter((value) => value.id === newValue.group.id)
-        if (permissionGroup.length > 0) {
-            const thisGroup = permissionGroup.at(0)
-            if (thisGroup !== undefined) {
-                const updatedTimeline = { ...timeline }
-                updatedTimeline.group = thisGroup
-                setTimeline(updatedTimeline)
+        }
+
+        if (newValue?.group) {
+            const permissionGroup = groups.filter((value) => value.id === newValue.group.id)
+            if (permissionGroup.length > 0) {
+                const thisGroup = permissionGroup.at(0)
+                if (thisGroup !== undefined && thisGroup !== null) {
+                    const updatedTimeline = { ...timeline }
+                    updatedTimeline.group = thisGroup
+                    setTimeline(updatedTimeline)
+                }
             }
         }
     }

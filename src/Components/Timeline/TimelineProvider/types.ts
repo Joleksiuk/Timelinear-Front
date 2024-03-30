@@ -32,6 +32,6 @@ export type TimelineBulkRequest = {
 }
 
 export type TimelinePermissionRequest = {
-    groupId: number
+    groupId: number | null
     timelineId: number
 }

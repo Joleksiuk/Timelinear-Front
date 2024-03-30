@@ -19,5 +19,6 @@ export const NameAndDateContainer = styled.div`
 
 export const IconFormContainerStyled = styled.div`
     display: flex;
+    flex-wrap: wrap;
     gap: 20px;
 `

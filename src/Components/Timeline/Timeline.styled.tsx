@@ -42,7 +42,7 @@ export const GridColumnContainer = styled.div`
 export const HeaderContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    max-width: 400px;
 `
 
 export const ContentContainerStyled = styled.div`

@@ -1,7 +1,4 @@
-import {
-    DiceBearAvatarCategory,
-    diceBearAvatarCategories,
-} from '@/Utils/User/AvatarUtils'
+import { DiceBearAvatarCategory, diceBearAvatarCategories } from '@/Utils/User/AvatarUtils'
 import { Autocomplete, TextField } from '@mui/material'
 import { useState } from 'react'
 
@@ -25,10 +22,8 @@ export default function AvatarTypeSelect({ setAvatarType }: Props) {
                 setValue(newValue)
                 setAvatarType(newValue)
             }}
-            sx={{ width: 300 }}
-            renderInput={(params) => (
-                <TextField {...params} label="Search for avatar category" />
-            )}
+            sx={{ minWidth: 200, maxWidth: 400 }}
+            renderInput={(params) => <TextField {...params} label="Search for avatar category" />}
         />
     )
 }

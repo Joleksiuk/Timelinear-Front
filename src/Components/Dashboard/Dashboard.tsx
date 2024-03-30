@@ -13,12 +13,30 @@ export default function Dashboard() {
         setOpen(!open)
     }
 
+    const [screenWidth, setScreenWidth] = React.useState(window.innerWidth)
+    const handleResize = () => {
+        setScreenWidth(window.innerWidth - 100)
+    }
+
+    React.useEffect(() => {
+        window.addEventListener('resize', handleResize)
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }, [])
+
+    const isSidebarVisible = screenWidth > 800
+    console.log(isSidebarVisible)
     return (
         <ThemeProvider theme={DefaultTheme}>
             <CssBaseline />
             <DashboardContainer>
-                <DashboardNavbar open={open} toggleDrawer={toggleDrawer} />
-                <DashboardSidebar open={open} toggleDrawer={toggleDrawer} />
+                <DashboardNavbar
+                    open={open}
+                    toggleDrawer={toggleDrawer}
+                    isSidebarVisible={isSidebarVisible}
+                />
+                {isSidebarVisible && <DashboardSidebar open={open} toggleDrawer={toggleDrawer} />}
                 <DashboardPage />
             </DashboardContainer>
         </ThemeProvider>

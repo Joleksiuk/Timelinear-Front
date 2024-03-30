@@ -10,6 +10,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { useState } from 'react'
 import TimelineService from './TimelineProvider/TimelineService'
 import { TimelineModel } from './TimelineProvider/types'
+import { homepageURL } from '@/Services/APIConstants'
 
 type Props = {
     timeline: TimelineModel
@@ -27,7 +28,10 @@ export default function TimelineActionsDropdown({ timeline }: Props) {
         setAnchorEl(null)
     }
 
-    const handleRemoveTimeline = async () => {}
+    const handleRemoveTimeline = async () => {
+        await TimelineService.deleteTimeline(timeline.id)
+        window.location.href = homepageURL
+    }
 
     const handleEditTimeline = () => {}
 
@@ -93,9 +97,9 @@ export default function TimelineActionsDropdown({ timeline }: Props) {
                 <MenuItem onClick={handleRemoveTimeline}>
                     <RemoveCircleIcon sx={{ marginRight: '10px' }} /> Delete Timeline
                 </MenuItem>
-                <MenuItem onClick={handleEditTimeline}>
+                {/* <MenuItem onClick={handleEditTimeline}>
                     <EditIcon sx={{ marginRight: '10px' }} /> Edit Timeline
-                </MenuItem>
+                </MenuItem> */}
             </Menu>
         </React.Fragment>
     )

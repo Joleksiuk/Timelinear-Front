@@ -24,7 +24,7 @@ export default function TimeEventsList() {
     const { sortingKey } = useSortContext()
     const [page, setPage] = useState(0)
     const [rowsPerPage, setRowsPerPage] = useState(10)
-    const [screenWidth, setScreenWidth] = useState(window.innerWidth - 100)
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth - 10)
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - timeEvents.length) : 0
 
     const handleChangePage = (
@@ -41,7 +41,7 @@ export default function TimeEventsList() {
         setPage(0)
     }
     const handleResize = () => {
-        setScreenWidth(window.innerWidth - 100)
+        setScreenWidth(window.innerWidth)
     }
 
     useEffect(() => {
@@ -56,7 +56,10 @@ export default function TimeEventsList() {
             {isLoadingData ? (
                 <CircularProgress />
             ) : (
-                <TableContainer component={Paper} sx={{ overflowX: 'auto', maxWidth: screenWidth }}>
+                <TableContainer
+                    component={Paper}
+                    sx={{ overflowX: 'auto', maxWidth: screenWidth - 10 }}
+                >
                     <Table aria-label="custom pagination table">
                         <TableBody>
                             <TableRow>

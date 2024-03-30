@@ -33,32 +33,19 @@ export default function GroupActionsDropdown({ group }: Props) {
         handleClose()
     }
 
-    const handleEditTimeEvent = () => {}
-
     return (
         <React.Fragment>
-            <Box
-                sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                }}
+            <IconButton
+                onClick={handleClick}
+                size="small"
+                edge="start" // or "end"
+                aria-controls={open ? 'account-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                sx={{ width: 32, height: 32 }}
             >
-                <Tooltip title="Time event actions">
-                    <IconButton
-                        onClick={handleClick}
-                        size="small"
-                        sx={{ ml: 2 }}
-                        aria-controls={open ? 'account-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}
-                    >
-                        <MoreHorizIcon sx={{ width: 32, height: 32 }}>
-                            M
-                        </MoreHorizIcon>
-                    </IconButton>
-                </Tooltip>
-            </Box>
+                <MoreHorizIcon sx={{ width: 32, height: 32 }}></MoreHorizIcon>
+            </IconButton>
 
             <Menu
                 anchorEl={anchorEl}
@@ -97,8 +84,7 @@ export default function GroupActionsDropdown({ group }: Props) {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 <MenuItem onClick={handleRemoveGroup}>
-                    <RemoveCircleIcon sx={{ marginRight: '10px' }} /> Delete
-                    Group
+                    <RemoveCircleIcon sx={{ marginRight: '10px' }} /> Delete Group
                 </MenuItem>
                 <MenuItem>
                     <EditIcon sx={{ marginRight: '10px' }} /> Edit Group

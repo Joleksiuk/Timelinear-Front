@@ -11,7 +11,7 @@ import {
     TablePagination,
     TableRow,
 } from '@mui/material'
-import { TableCellStyled, UsersContainerStyled } from './GroupList.styled'
+import { ContainerStyled, TableCellStyled, UsersContainerStyled } from './GroupList.styled'
 import GroupActionsDropdown from './GroupActionDropdown'
 import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions'
 import GroupUserComponent from './GroupUserComponent'
@@ -61,17 +61,14 @@ export default function GroupsList() {
                     component={Paper}
                     sx={{
                         overflowX: 'auto',
-                        maxWidth: screenWidth,
                         boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
                     }}
                 >
                     <Table>
                         <TableBody>
-                            <TableCell component="th"></TableCell>
                             <TableCell component="th">Name</TableCell>
                             <TableCell component="th">Description</TableCell>
                             <TableCell component="th">Users</TableCell>
-                            <TableCell component="th"></TableCell>
 
                             {(rowsPerPage > 0
                                 ? groups?.slice(
@@ -81,27 +78,29 @@ export default function GroupsList() {
                                 : groups
                             )?.map((row, index) => (
                                 <TableRow key={row.id}>
-                                    <TableCellStyled width="6%">
-                                        {index + page * rowsPerPage}
+                                    <TableCellStyled>
+                                        <ContainerStyled>
+                                            {row.name} <GroupActionsDropdown group={row} />
+                                        </ContainerStyled>
                                     </TableCellStyled>
-                                    <TableCellStyled width="20%">{row.name}</TableCellStyled>
-                                    <TableCellStyled width="25%">{row.description}</TableCellStyled>
-                                    <TableCellStyled width="25%">
+                                    <TableCellStyled>{row.description}</TableCellStyled>
+                                    <TableCellStyled>
                                         <UsersContainerStyled>
                                             {row?.users.map((user) => (
-                                                <GroupUserComponent user={user} group={row} />
+                                                <GroupUserComponent
+                                                    user={user}
+                                                    group={row}
+                                                    onlyIcon={screenWidth < 700}
+                                                />
                                             ))}
                                             <AddUserDialog group={row} />
                                         </UsersContainerStyled>
                                     </TableCellStyled>
-                                    <TableCellStyled width="14%">
-                                        <GroupActionsDropdown group={row} />
-                                    </TableCellStyled>
                                 </TableRow>
                             ))}
                             {emptyRows > 0 && (
-                                <TableRow style={{ height: 53 * emptyRows }}>
-                                    <TableCell colSpan={6} />
+                                <TableRow key={Math.random()} style={{ height: 53 * emptyRows }}>
+                                    <TableCell colSpan={4} />
                                 </TableRow>
                             )}
                         </TableBody>
@@ -109,7 +108,6 @@ export default function GroupsList() {
                             <TableRow>
                                 <TablePagination
                                     rowsPerPageOptions={[10, 25, { label: 'All', value: -1 }]}
-                                    colSpan={6}
                                     count={groups.length}
                                     rowsPerPage={rowsPerPage}
                                     page={page}

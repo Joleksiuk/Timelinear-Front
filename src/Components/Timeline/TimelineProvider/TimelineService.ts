@@ -16,22 +16,16 @@ import {
 } from './types'
 
 export default {
-    async createTimeline(
-        timeline: TimelinePostRequest
-    ): Promise<TimelineModel> {
+    async createTimeline(timeline: TimelinePostRequest): Promise<TimelineModel> {
         const response = await request(TIMELINE_URL, 'POST', timeline)
         return response.data
     },
 
     async updateTimeline(
-        timeline: TimelinePostRequest,
+        timelineData: TimelinePostRequest,
         timelineId: number
     ): Promise<TimelineModel> {
-        const response = await request(
-            `${TIMELINE_URL}/${timelineId}`,
-            'DELETE',
-            timeline
-        )
+        const response = await request(`${TIMELINE_URL}/${timelineId}`, 'PUT', timelineData)
         return response.data
     },
 
@@ -54,9 +48,7 @@ export default {
         return response.data
     },
 
-    async getTimelinesInBulk(
-        timelineIds: Array<number>
-    ): Promise<TimelineBulkResponse> {
+    async getTimelinesInBulk(timelineIds: Array<number>): Promise<TimelineBulkResponse> {
         const requestData: TimelineBulkRequest = {
             timelineIds,
         }
@@ -64,23 +56,21 @@ export default {
         return response.data
     },
 
-    async addEventToTimeline(
-        data: TimelineTimeEventBean
-    ): Promise<TimelineModel> {
+    async addEventToTimeline(data: TimelineTimeEventBean): Promise<TimelineModel> {
         const response = await request(TIMELINE_EVENTS_URL, 'POST', data)
         return response.data
     },
 
-    async removeEventFromTimeline(
-        data: TimelineTimeEventBean
-    ): Promise<TimelineModel> {
+    async removeEventFromTimeline(data: TimelineTimeEventBean): Promise<TimelineModel> {
         const response = await request(TIMELINE_EVENTS_URL, 'DELETE', data)
         return response.data
     },
 
-    async setAllowedToBrowseGroup(
-        data: TimelinePermissionRequest
-    ): Promise<void> {
+    async setAllowedToBrowseGroup(data: TimelinePermissionRequest): Promise<void> {
+        if (data.groupId === undefined) {
+            data.groupId = null
+        }
+        console.log(data)
         await request(TIMELINE_BROWSE_GROUP, 'PUT', data)
     },
 }

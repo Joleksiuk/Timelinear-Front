@@ -10,12 +10,22 @@ export const TableCellStyled = styled(TableCell)<TableCellProps>`
     width: ${(props) => props.width || '20%'};
     word-wrap: wrap;
     word-break: break-all;
+    white-space: 'nowrap';
+    overflow: 'hidden';
+    text-overflow: 'ellipsis';
 `
 
 export const UsersContainerStyled = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     gap: 20px;
+`
+
+export const ContainerStyled = styled.div`
+    display: grid;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
 `
 
 export const AddIconStyled = styled(AddCircleIcon)`

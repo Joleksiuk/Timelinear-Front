@@ -55,6 +55,7 @@ export default function IconSearchDialog({
                         timeout: 500,
                     },
                 }}
+                sx={{ overflow: 'auto' }}
             >
                 <Fade in={open}>
                     <Box sx={style}>
@@ -69,8 +70,8 @@ export default function IconSearchDialog({
                         </FrontContainerStyled>
                         <IconFormContainerStyled>
                             <EmojiPickerComponent setEventIcon={setEventIcon} />
-                            <Typography>OR</Typography>
-                            <IconSearch setEventIcon={setEventIcon} />
+                            {/* <Typography>OR</Typography>
+                            <IconSearch setEventIcon={setEventIcon} /> */}
                         </IconFormContainerStyled>
                     </Box>
                 </Fade>

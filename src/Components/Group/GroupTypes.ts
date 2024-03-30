@@ -13,6 +13,8 @@ export type Group = {
 export type GroupUser = {
     id: number
     username: string
+    avatarSeed: string
+    avatarType: string
 }
 
 export type GroupBulkResponse = {

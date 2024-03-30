@@ -30,5 +30,5 @@ export const ColorCircle = styled.div<Props>`
     height: 40px;
     border-radius: 10px;
     background-color: ${(props) => props?.categoryColor || '#887a96ef'};
-    margin-left: ${(props) => props?.marginLeft || '10px'};
+    margin-left: ${(props) => props?.marginLeft};
 `
