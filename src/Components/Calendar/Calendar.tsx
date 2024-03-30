@@ -2,7 +2,7 @@ import { BodyCell, CalendarTable, HeaderCellStyled, HeaderContainerStyled } from
 import { useTimeEventsContext } from '../TimeEventList/TimeEventsProvider'
 import dayjs from 'dayjs'
 import { TimeEvent } from '../TimeEvent/types'
-import { Divider, IconButton, TablePagination } from '@mui/material'
+import { CircularProgress, Divider, IconButton, TablePagination } from '@mui/material'
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft'
 import { daysOfWeek, months } from './CalendarConstants'
@@ -48,7 +48,7 @@ export default function Calendar() {
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate()
     const days = Array.from({ length: daysInMonth }, (_, i) => i + 1)
 
-    const { timeEvents } = useTimeEventsContext()
+    const { timeEvents, isLoadingData } = useTimeEventsContext()
     const { sortingKey } = useSortContext()
     const { filterByCategory, filterByText, filterByDate } = useFilterContext()
 
@@ -110,42 +110,49 @@ export default function Calendar() {
             <Divider sx={{ marginBottom: '80px' }} orientation="horizontal" flexItem>
                 {months[currentMonth]} {currentYear}
             </Divider>
-            <CalendarTable key="calendar-table">
-                <thead>
-                    <tr>
-                        {Array.from({ length: daysInMonth }, (_, i) => (
-                            <th>
-                                <HeaderCellStyled key={i + 1}>
-                                    {i + 1}
-                                    <br />
-                                    {daysOfWeek[
-                                        new Date(currentYear, currentMonth, i + 1).getDay()
-                                    ].substring(0, 3)}
-                                </HeaderCellStyled>
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {timeEvents
-                        .sort(sortingFunctionMap[sortingKey])
-                        .filter(filterByText)
-                        .filter(filterByCategory)
-                        .filter(filterByDate)
-                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        .map((timeEvent) => (
-                            <tr key={timeEvent.id}>{renderBodyCellsForRow(timeEvent)}</tr>
-                        ))}
-                </tbody>
-            </CalendarTable>
-            <TablePagination
-                component="div"
-                count={timeEvents.length}
-                page={page}
-                onPageChange={handleChangePage}
-                rowsPerPage={rowsPerPage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
+            {isLoadingData ? (
+                <CircularProgress />
+            ) : (
+                <>
+                    <CalendarTable key="calendar-table">
+                        <thead>
+                            <tr>
+                                {Array.from({ length: daysInMonth }, (_, i) => (
+                                    <th>
+                                        <HeaderCellStyled key={i + 1}>
+                                            {i + 1}
+                                            <br />
+                                            {daysOfWeek[
+                                                new Date(currentYear, currentMonth, i + 1).getDay()
+                                            ].substring(0, 3)}
+                                        </HeaderCellStyled>
+                                    </th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {timeEvents
+                                .sort(sortingFunctionMap[sortingKey])
+                                .filter(filterByText)
+                                .filter(filterByCategory)
+                                .filter(filterByDate)
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((timeEvent) => (
+                                    <tr key={timeEvent.id}>{renderBodyCellsForRow(timeEvent)}</tr>
+                                ))}
+                        </tbody>
+                    </CalendarTable>
+
+                    <TablePagination
+                        component="div"
+                        count={timeEvents.length}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        rowsPerPage={rowsPerPage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                    />
+                </>
+            )}
         </>
     )
 }

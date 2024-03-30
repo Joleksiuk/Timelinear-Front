@@ -28,6 +28,8 @@ export const BodyCellContentContainer = styled.div`
 export const EmptyCell = styled.td`
     background-color: transparent;
     height: 50px;
+    border: 1px solid #4e5163;
+
     overflow: hidden;
 `
 

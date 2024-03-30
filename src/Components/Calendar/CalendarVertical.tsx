@@ -66,44 +66,33 @@ export default function Calendar() {
     }, [timeEvents, filterByText, filterByCategory, filterByDate, sortingKey, page, rowsPerPage])
 
     const renderBodyCellsForRow = (day: number, index: number) => {
-        const bodyCells: any = []
-        bodyCells.push(<DayCell aria-colspan={1}>{day}</DayCell>)
+        const mappedEvents = sortedAndFilteredEvents.map((event, index) => {
+            return {
+                columnId: index,
+                event: event,
+            }
+        })
 
-        const eventsOnCurrentDay = sortedAndFilteredEvents.filter((timeEvent) =>
-            isEventInCurrentDate(day, timeEvent, currentYear, currentMonth)
-        )
-
-        if (eventsOnCurrentDay.length > 0) {
-            eventsOnCurrentDay.forEach((eventOnCurrentDay) => {
-                let currentDay = day
-                const consecutiveMarkedDays = [day]
-                while (
-                    index + 1 < daysInMonth &&
-                    isEventInCurrentDate(
-                        currentDay + 1,
-                        eventOnCurrentDay,
-                        currentYear,
-                        currentMonth
-                    )
-                ) {
-                    consecutiveMarkedDays.push(currentDay + 1)
-                    currentDay++
-                }
-
-                bodyCells.push(
+        const cells = mappedEvents.map((event, index) => {
+            if (isEventInCurrentDate(day, event.event, currentYear, currentMonth)) {
+                return (
                     <CalendarCell
+                        key={`${day}-${index}`}
                         colSpan={1}
-                        timeEvent={eventOnCurrentDay}
+                        timeEvent={event.event}
                         day={day}
                         daysInMonth={daysInMonth}
                         isVertical
                     />
                 )
-            })
-        } else {
-            bodyCells.push(<EmptyCell key={day} colSpan={1} />)
-        }
+            } else {
+                return <EmptyCell key={`${day}-empty-${index}`} colSpan={1} />
+            }
+        })
 
+        const bodyCells: any = []
+        bodyCells.push(<DayCell aria-colspan={1}>{day}</DayCell>)
+        bodyCells.push(...cells)
         return bodyCells
     }
 
