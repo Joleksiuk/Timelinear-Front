@@ -33,7 +33,7 @@ export default function ProfilePageLayout() {
                             loggedUser.avatar_seed,
                             loggedUser.avatar_type
                         )}
-                        alt=""
+                        alt="User Avatar Image"
                     />
                     <AvatarChangeDialog setLoggedUser={setLoggedUser} />
                     <div>Email: {loggedUser?.email} </div>

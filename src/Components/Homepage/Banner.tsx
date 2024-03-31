@@ -17,7 +17,7 @@ const Banner: React.FC<BannerProps> = ({ title = '', description = '', children 
         <div className="intro">
             <div className="quote">
                 <h1>{title}</h1>
-                <p>{description}</p>
+                <div className="description">{description}</div>
                 {children}
             </div>
             <div className="squares-wrapper">
@@ -31,7 +31,7 @@ const Banner: React.FC<BannerProps> = ({ title = '', description = '', children 
                                     left: `${generateRandomNum({ min: 0, max: 90 })}%`,
                                     width: `${size}px`,
                                     height: `${size}px`,
-                                    animationDelay: `${generateRandomNum({ min: 0, max: 30 })}s`,
+                                    animationDelay: `${generateRandomNum({ min: 0, max: 15 })}s`,
                                 }}
                             />
                         )

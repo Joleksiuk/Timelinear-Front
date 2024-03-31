@@ -1,5 +1,7 @@
 export const homepageURL = 'https://timelinear-local-storage.onrender.com'
 export const API_BASE_URL = 'https://timelinear-server.onrender.com/api/v1'
+// export const homepageURL = 'http://localhost:3000'
+// export const API_BASE_URL = 'http://localhost:8080/api/v1'
 export const SIGN_UP_URL = 'auth/register'
 export const SIGN_IN_URL = 'auth/authenticate'
 export const CHANGE_PASSWORD_URL = 'users/changePassword'

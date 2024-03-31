@@ -68,6 +68,6 @@ export default {
 
     getAvatar(seed: string, category: DiceBearAvatarCategory): JSX.Element {
         const source = `https://api.dicebear.com/7.x/${category}/svg?seed=${seed}`
-        return <img src={source} alt="" />
+        return <img src={source} alt="Avatar Image" />
     },
 }

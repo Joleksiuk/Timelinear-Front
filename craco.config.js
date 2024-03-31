@@ -4,5 +4,13 @@ module.exports = {
         alias: {
             '@': path.resolve(__dirname, 'src'),
         },
+        module: {
+            rules: [
+                {
+                    test: /\.(png|jpe?g|svg|gif)$/,
+                    use: ['file-loader'],
+                },
+            ],
+        },
     },
 }

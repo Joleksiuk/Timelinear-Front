@@ -11,6 +11,8 @@ import { TimeEvent } from '../types'
 import TimeEventListService from '@/Components/TimeEventList/TimeEventListService'
 import { useTimeEventsContext } from '@/Components/TimeEventList/TimeEventsProvider'
 import { useState } from 'react'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
     timeEvent: TimeEvent
@@ -19,8 +21,8 @@ export default function TimeEventActionsDropdown({ timeEvent }: Props) {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const { setCurrentlyEditedEvent } = useTimeEventsContext()
     const open = Boolean(anchorEl)
-    const { timeEvents, setTimeEvents, setIsLoadingData } =
-        useTimeEventsContext()
+    const navigate = useNavigate()
+    const { timeEvents, setTimeEvents } = useTimeEventsContext()
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget)
     }
@@ -31,15 +33,17 @@ export default function TimeEventActionsDropdown({ timeEvent }: Props) {
     const handleRemoveTimeEvent = async () => {
         await TimeEventListService.deleteTimeEvent(timeEvent.id)
         let updatedTimeEvents = [...timeEvents]
-        updatedTimeEvents = updatedTimeEvents.filter(
-            (arg) => timeEvent.id !== arg.id
-        )
+        updatedTimeEvents = updatedTimeEvents.filter((arg) => timeEvent.id !== arg.id)
         setTimeEvents(updatedTimeEvents)
         handleClose()
     }
 
     const handleEditTimeEvent = () => {
         setCurrentlyEditedEvent(timeEvent)
+    }
+
+    const handleGoToEvent = () => {
+        navigate('/timeEvent/' + timeEvent.id)
     }
 
     return (
@@ -60,9 +64,7 @@ export default function TimeEventActionsDropdown({ timeEvent }: Props) {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <MoreHorizIcon sx={{ width: 32, height: 32 }}>
-                            M
-                        </MoreHorizIcon>
+                        <MoreHorizIcon sx={{ width: 32, height: 32 }} />
                     </IconButton>
                 </Tooltip>
             </Box>
@@ -104,11 +106,13 @@ export default function TimeEventActionsDropdown({ timeEvent }: Props) {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 <MenuItem onClick={handleRemoveTimeEvent}>
-                    <RemoveCircleIcon sx={{ marginRight: '10px' }} /> Delete
-                    Event
+                    <RemoveCircleIcon sx={{ marginRight: '10px' }} /> Delete Event
                 </MenuItem>
                 <MenuItem onClick={handleEditTimeEvent}>
                     <EditIcon sx={{ marginRight: '10px' }} /> Edit Event
+                </MenuItem>
+                <MenuItem onClick={handleGoToEvent}>
+                    <ArrowForwardIcon sx={{ marginRight: '10px' }} /> Go to event
                 </MenuItem>
             </Menu>
         </React.Fragment>

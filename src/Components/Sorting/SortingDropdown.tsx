@@ -1,5 +1,7 @@
+import { useEffect } from 'react'
 import { useSortContext } from './SortingProvider'
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material'
+import { getSortingFromLocalStorage, saveSortingToLocalStorage } from './SortingService'
 
 type SortBy = 'Start Date' | 'End Date' | 'Name' | 'Event length' | 'Category' | 'Default'
 type SortType = 'ASC' | 'DSC' | ''
@@ -20,9 +22,19 @@ const SortingOptions: string[] = [
 
 export default function SortingDropdown() {
     const { sortBy, sortType, setSortType, setSortBy } = useSortContext()
+
+    useEffect(() => {
+        const defaultSorting = getSortingFromLocalStorage()
+        if (defaultSorting) {
+            setSortBy(defaultSorting.sortBy)
+            setSortType(defaultSorting.sortType)
+        }
+    }, [])
+
     const handleChange = (event: SelectChangeEvent) => {
         getSortType(event.target.value)
         getSortBy(event.target.value)
+        saveSortingToLocalStorage(sortType, sortBy)
     }
 
     const getSortType = (option: string) => {

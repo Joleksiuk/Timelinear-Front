@@ -2,7 +2,6 @@ import { Toolbar, IconButton, Divider, List } from '@mui/material'
 import { Drawer } from './Dashboard.styled'
 import DashboardSidebarItems from './DashboardSidebarItems'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import styled from 'styled-components'
 
 type Props = {
     toggleDrawer: () => void

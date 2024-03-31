@@ -26,7 +26,6 @@ export default function Dashboard() {
     }, [])
 
     const isSidebarVisible = screenWidth > 800
-    console.log(isSidebarVisible)
     return (
         <ThemeProvider theme={DefaultTheme}>
             <CssBaseline />

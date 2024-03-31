@@ -70,7 +70,6 @@ export default {
         if (data.groupId === undefined) {
             data.groupId = null
         }
-        console.log(data)
         await request(TIMELINE_BROWSE_GROUP, 'PUT', data)
     },
 }

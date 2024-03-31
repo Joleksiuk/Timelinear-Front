@@ -12,6 +12,7 @@ import ChangePasswordPage from '@/Pages/ChangePasswordPage'
 import GroupsPage from '@/Pages/GroupsPage'
 import ProfilePage from '@/Pages/ProfilePage'
 import TimeEventPage from './Pages/TimeEventPage'
+import ProjectDescription from './Components/ProjectDescription/ProjectDescriptionPage'
 
 export default function App() {
     return (
@@ -19,29 +20,18 @@ export default function App() {
             <Routes>
                 <Route path="/" element={<Dashboard />}>
                     <Route index element={<HomePage />} />
-                    <Route
-                        path="timeline/:timelineId"
-                        element={<TimelinePage />}
-                    />
-                    <Route
-                        path="timeEvent/:timeEventId"
-                        element={<TimeEventPage />}
-                    />
+                    <Route path="timeline/:timelineId" element={<TimelinePage />} />
+                    <Route path="timeEvent/:timeEventId" element={<TimeEventPage />} />
                     <Route path="signup" element={<SignUp />} />
                     <Route path="signin" element={<SignIn />} />
                     <Route path="profile" element={<ProfilePage />} />
                     <Route path="timelineList" element={<TimelinePage />} />
                     <Route path="calendar" element={<CalendarPage />} />
-                    <Route
-                        path="timelinesList"
-                        element={<TimelinesListPage />}
-                    />
+                    <Route path="timelinesList" element={<TimelinesListPage />} />
                     <Route path="timeEvents" element={<EventsListPage />} />
                     <Route path="groups" element={<GroupsPage />} />
-                    <Route
-                        path="changePassword"
-                        element={<ChangePasswordPage />}
-                    />
+                    <Route path="projectDescription" element={<ProjectDescription />} />
+                    <Route path="changePassword" element={<ChangePasswordPage />} />
                     <Route path="*" element={<NoPage />} />
                 </Route>
             </Routes>

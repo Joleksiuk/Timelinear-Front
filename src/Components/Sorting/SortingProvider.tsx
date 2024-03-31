@@ -65,7 +65,6 @@ const SortProvider = ({ children }: Props) => {
             newSortingKey = `${sortBy} ${sortType}`
         }
         setSortingKey(newSortingKey)
-        console.log(newSortingKey)
     }, [sortBy, sortType])
 
     return (

@@ -57,7 +57,10 @@ export default function GroupUserComponent({ user, group, onlyIcon = false }: Pr
                 onClick={handleTooltipOpen}
             >
                 <Avatar sx={{ width: 32, height: 32 }}>
-                    <img src={AvatarUtils.getAvatarUrl(user?.avatarSeed, user.avatarType)} alt="" />
+                    <img
+                        src={AvatarUtils.getAvatarUrl(user?.avatarSeed, user.avatarType)}
+                        alt="User Avatar Image"
+                    />
                 </Avatar>
             </Tooltip>
             {!onlyIcon && user.username}

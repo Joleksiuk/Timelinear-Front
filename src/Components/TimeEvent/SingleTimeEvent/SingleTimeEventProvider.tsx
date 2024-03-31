@@ -1,10 +1,4 @@
-import {
-    ReactNode,
-    createContext,
-    useContext,
-    useEffect,
-    useState,
-} from 'react'
+import { ReactNode, createContext, useContext, useEffect, useState } from 'react'
 import { getCurrentUser } from '@/Services/AuthService'
 import { useParams } from 'react-router-dom'
 import { TimeEvent } from '@/Components/TimeEvent/types'
@@ -44,11 +38,8 @@ const SingleTimeEventProvider = ({ children }: Props) => {
     const initData = async () => {
         try {
             setIsLoadingData(true)
-            const responseTimeEvent = await TimeEventListService.getTimeEvent(
-                Number(timeEventId)
-            )
+            const responseTimeEvent = await TimeEventListService.getTimeEvent(Number(timeEventId))
             setTimeEvent(responseTimeEvent)
-            console.log(responseTimeEvent)
         } catch (error) {
             setTimeEvent(null)
         } finally {
@@ -86,13 +77,9 @@ const SingleTimeEventProvider = ({ children }: Props) => {
 }
 
 const useSingleTimeEventContext = () => {
-    const context = useContext<SignleTimeEventContextProps>(
-        SingleTimeEventContext
-    )
+    const context = useContext<SignleTimeEventContextProps>(SingleTimeEventContext)
     if (!context) {
-        throw new Error(
-            'useSingleTimeEventContext must be used within a SingleTimeEventProvider'
-        )
+        throw new Error('useSingleTimeEventContext must be used within a SingleTimeEventProvider')
     }
     return context
 }

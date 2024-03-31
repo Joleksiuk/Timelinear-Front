@@ -46,9 +46,7 @@ export default function LoggedAccountDropdown() {
                     textAlign: 'center',
                 }}
             >
-                <Typography>
-                    {getCurrentUser() && getCurrentUser()?.email}
-                </Typography>
+                <Typography>{getCurrentUser() && getCurrentUser()?.email}</Typography>
                 <Tooltip title="Account settings">
                     <IconButton
                         onClick={handleClick}
@@ -64,7 +62,7 @@ export default function LoggedAccountDropdown() {
                                     getCurrentUser()?.avatar_seed,
                                     getCurrentUser()?.avatar_type
                                 )}
-                                alt=""
+                                alt="User avatar"
                             />
                         </Avatar>
                     </IconButton>

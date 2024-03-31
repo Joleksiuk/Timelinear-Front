@@ -70,7 +70,6 @@ export default function CategorySearch({ defaultCategory: category, setCategory 
             options={mapCategoriesToOption()}
             onChange={(event: any, newValue: any) => {
                 handleValueChange(newValue)
-                console.log(event)
             }}
             defaultValue={getDefaultValue()}
             renderInput={(params) => <TextField {...params} label="Choose category" />}

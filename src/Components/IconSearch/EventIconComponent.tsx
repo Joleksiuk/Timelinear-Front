@@ -36,7 +36,7 @@ export default function EventIconComponent({
             return <div style={{ marginLeft: '5px' }}> None</div>
         }
         if (eventIcon?.type === 'emoji') {
-            return <img style={style} src={eventIcon.source} alt=""></img>
+            return <img style={style} src={eventIcon.source} alt="Event Icon Image"></img>
         }
         if (eventIcon?.type === 'icon') {
             const iconElement = iconMapping[eventIcon.source]

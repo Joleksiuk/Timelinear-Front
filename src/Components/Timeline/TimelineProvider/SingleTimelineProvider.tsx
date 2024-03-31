@@ -1,10 +1,4 @@
-import {
-    ReactNode,
-    createContext,
-    useContext,
-    useEffect,
-    useState,
-} from 'react'
+import { ReactNode, createContext, useContext, useEffect, useState } from 'react'
 import { TimelineModel, TimelineTimeEventBean } from './types'
 import { getCurrentUser } from '@/Services/AuthService'
 import TimelineService from './TimelineService'
@@ -32,9 +26,7 @@ const DefaultTimeEventsContext: SignleTimelineContextProps = {
     removeEventFromTimeline: (id: number) => Promise.resolve(),
 }
 
-const TimelinesContext = createContext<SignleTimelineContextProps>(
-    DefaultTimeEventsContext
-)
+const TimelinesContext = createContext<SignleTimelineContextProps>(DefaultTimeEventsContext)
 
 type Props = {
     children: ReactNode
@@ -49,9 +41,7 @@ const SingleTimelineProvider = ({ children }: Props) => {
     const initData = async () => {
         try {
             setIsLoadingData(true)
-            const responseTimeline = await TimelineService.getTimeline(
-                Number(timelineId)
-            )
+            const responseTimeline = await TimelineService.getTimeline(Number(timelineId))
             if (responseTimeline?.ownerEmail === getCurrentUser()?.email) {
                 setCanEdit(true)
             }
@@ -82,14 +72,11 @@ const SingleTimelineProvider = ({ children }: Props) => {
         }
     }
 
-    const addEventToTimeline = async (
-        newTimeEvent: TimeEvent
-    ): Promise<void> => {
+    const addEventToTimeline = async (newTimeEvent: TimeEvent): Promise<void> => {
         if (!timeline || isEventAlreadyOnTheList(newTimeEvent)) {
             return
         }
 
-        console.log(newTimeEvent)
         const requestData: TimelineTimeEventBean = {
             timelineId: Number(timeline.id),
             timeEventId: newTimeEvent.id,
@@ -98,8 +85,7 @@ const SingleTimelineProvider = ({ children }: Props) => {
         await TimelineService.addEventToTimeline(requestData)
 
         const updatedTimeEvents = [
-            ...(timeline.timeEvents.filter((timeEvent) => timeEvent !== null) ||
-                []),
+            ...(timeline.timeEvents.filter((timeEvent) => timeEvent !== null) || []),
         ]
         updatedTimeEvents.push(newTimeEvent)
 
@@ -162,9 +148,7 @@ const SingleTimelineProvider = ({ children }: Props) => {
 const useSingleTimelineContext = () => {
     const context = useContext<SignleTimelineContextProps>(TimelinesContext)
     if (!context) {
-        throw new Error(
-            'useSingleTimelineContext must be used within a TimelineProvider'
-        )
+        throw new Error('useSingleTimelineContext must be used within a TimelineProvider')
     }
     return context
 }
