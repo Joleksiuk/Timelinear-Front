@@ -38,7 +38,8 @@ export default function Timeline() {
             )
     }
     useEffect(() => {
-        updateTimeline()
+        if (timelineName !== timeline?.name || timelineDescription !== timeline?.description)
+            updateTimeline()
     }, [timelineName, timelineDescription])
 
     useEffect(() => {
