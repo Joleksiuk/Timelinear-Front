@@ -3,7 +3,6 @@ import ViewListIcon from '@mui/icons-material/ViewList'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import { ListItemButton, ListItemText } from '@mui/material'
@@ -11,6 +10,8 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import GroupIcon from '@mui/icons-material/Group'
 import TimelineIcon from '@mui/icons-material/Timeline'
 import { useNavigate } from 'react-router-dom'
+import ArchitectureIcon from '@mui/icons-material/Architecture'
+import { getCurrentUser } from '@/Services/AuthService'
 
 export default function DashboardDropdown() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -23,6 +24,60 @@ export default function DashboardDropdown() {
     const handleClose = () => {
         setAnchorEl(null)
     }
+
+    const loggedInItems: React.ReactNode[] = [
+        <MenuItem>
+            <ListItemButton onClick={() => navigate('/calendar')}>
+                <ListItemIcon>
+                    <CalendarMonthIcon />
+                </ListItemIcon>
+                <ListItemText primary="Calendar" />
+            </ListItemButton>
+        </MenuItem>,
+        <MenuItem>
+            <ListItemButton onClick={() => navigate('/timelinesList')}>
+                <ListItemIcon>
+                    <TimelineIcon />
+                </ListItemIcon>
+                <ListItemText primary="My timelines" />
+            </ListItemButton>
+        </MenuItem>,
+        <MenuItem>
+            <ListItemButton onClick={() => navigate('/timeEvents')}>
+                <ListItemIcon>
+                    <ViewListIcon />
+                </ListItemIcon>
+                <ListItemText primary="My events" />
+            </ListItemButton>
+        </MenuItem>,
+        <MenuItem>
+            <ListItemButton onClick={() => navigate('/groups')}>
+                <ListItemIcon>
+                    <GroupIcon />
+                </ListItemIcon>
+                <ListItemText primary="Groups" />
+            </ListItemButton>
+        </MenuItem>,
+        <MenuItem>
+            <ListItemButton onClick={() => navigate('/projectDescription')}>
+                <ListItemIcon>
+                    <ArchitectureIcon />
+                </ListItemIcon>
+                <ListItemText primary="Project description" />
+            </ListItemButton>
+        </MenuItem>,
+    ]
+
+    const notLoggedInItems: React.ReactNode[] = [
+        <MenuItem>
+            <ListItemButton onClick={() => navigate('/projectDescription')}>
+                <ListItemIcon>
+                    <ArchitectureIcon />
+                </ListItemIcon>
+                <ListItemText primary="Project description" />
+            </ListItemButton>
+        </MenuItem>,
+    ]
 
     return (
         <React.Fragment>
@@ -73,39 +128,9 @@ export default function DashboardDropdown() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem>
-                    <ListItemButton onClick={() => navigate('/calendar')}>
-                        <ListItemIcon>
-                            <CalendarMonthIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Calendar" />
-                    </ListItemButton>
-                </MenuItem>
-                <Divider />
-                <MenuItem>
-                    <ListItemButton onClick={() => navigate('/timelinesList')}>
-                        <ListItemIcon>
-                            <TimelineIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="My timelines" />
-                    </ListItemButton>
-                </MenuItem>
-                <MenuItem>
-                    <ListItemButton onClick={() => navigate('/timeEvents')}>
-                        <ListItemIcon>
-                            <ViewListIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="My events" />
-                    </ListItemButton>
-                </MenuItem>
-                <MenuItem>
-                    <ListItemButton onClick={() => navigate('/groups')}>
-                        <ListItemIcon>
-                            <GroupIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Groups" />
-                    </ListItemButton>
-                </MenuItem>
+                {getCurrentUser() !== null
+                    ? loggedInItems.map((item) => item)
+                    : notLoggedInItems.map((item) => item)}
             </Menu>
         </React.Fragment>
     )

@@ -3,6 +3,7 @@ import {
     ContainerVertical,
     ImageContainer,
     RequriementContainer,
+    ResponsiveImage,
 } from './ProjectDescriptionPage.styled'
 import calendarImg from './../../Assets/calendar.png'
 import timelineImg from './../../Assets/timeline.png'
@@ -72,16 +73,8 @@ export default function RequirementsPanel() {
                     {Explanation2}
                 </Typography>
                 <ImageContainer>
-                    <img
-                        style={{ width: '300px', height: '170px' }}
-                        src={calendarImg}
-                        alt="Calendar requirement screenshot"
-                    />
-                    <img
-                        style={{ width: '300px', height: '170px' }}
-                        src={timelineImg}
-                        alt="Timeline requirement screenshot"
-                    />
+                    <ResponsiveImage src={calendarImg} alt="Calendar requirement screenshot" />
+                    <ResponsiveImage src={timelineImg} alt="Timeline requirement screenshot" />
                 </ImageContainer>
             </RequriementContainer>
         </ContainerVertical>

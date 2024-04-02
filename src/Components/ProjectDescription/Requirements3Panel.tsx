@@ -1,5 +1,9 @@
 import { List, ListItem, Typography } from '@mui/material'
-import { ContainerVertical, RequriementContainer } from './ProjectDescriptionPage.styled'
+import {
+    ContainerVertical,
+    RequriementContainer,
+    ResponsiveImage,
+} from './ProjectDescriptionPage.styled'
 import databaseImg from './../../Assets/database.png'
 
 const Requirement =
@@ -51,11 +55,7 @@ export default function Requirements2Panel() {
                         </ListItem>
                     ))}
                 </List>
-                <img
-                    style={{ width: '45%', height: '45%' }}
-                    src={databaseImg}
-                    alt="Database requirement screenshot"
-                />
+                <ResponsiveImage src={databaseImg} alt="Database requirement screenshot" />
             </RequriementContainer>
         </ContainerVertical>
     )

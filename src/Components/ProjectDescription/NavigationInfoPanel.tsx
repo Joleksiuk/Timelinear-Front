@@ -3,6 +3,7 @@ import {
     ContainerVertical,
     RequriementContainer,
     ImageContainer,
+    ResponsiveImage,
 } from './ProjectDescriptionPage.styled'
 import navImg from './../../Assets/nav.png'
 import pasekImg from './../../Assets/pasek.png'
@@ -48,13 +49,8 @@ export default function NavigationInfoPanel() {
                     {Explanataion}
                 </Typography>
                 <ImageContainer>
-                    <img
-                        style={{ width: '45%', height: '45%' }}
-                        src={navImg}
-                        alt="Navigation bar requirement screenshot"
-                    />
-                    <img
-                        style={{ width: '45%', height: '45%' }}
+                    <ResponsiveImage src={navImg} alt="Navigation bar requirement screenshot" />
+                    <ResponsiveImage
                         src={pasekImg}
                         alt="Navigation sidebar requirement screenshot"
                     />

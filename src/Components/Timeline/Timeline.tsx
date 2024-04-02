@@ -9,7 +9,6 @@ import { useSingleTimelineContext } from './TimelineProvider/SingleTimelineProvi
 import TimelineUtils from './TimelineUtils'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useEffect, useState } from 'react'
-import { TimeEvent } from '../TimeEvent/types'
 import { Divider, Typography } from '@mui/material'
 import TestTimeline from './TimelineChart/TimelineChart'
 import TimelinePageHeader from './TimelinePageHeader'

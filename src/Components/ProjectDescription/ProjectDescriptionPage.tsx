@@ -5,7 +5,6 @@ import Requirements2Panel from './Requirements2Panel'
 import Requirements3Panel from './Requirements3Panel'
 import NavigationInfoPanel from './NavigationInfoPanel'
 import Carousel from '../Carousel/Carousel'
-import Requirements4Panel from './GithubInfo'
 
 const pageContents = [
     <Banner

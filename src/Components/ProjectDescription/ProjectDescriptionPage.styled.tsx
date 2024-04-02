@@ -97,3 +97,13 @@ export const ClickableContainer = styled.div`
             rgba(0, 0, 0, 0.09) 0px -3px 5px;
     }
 `
+
+export const ResponsiveImage = styled.img`
+    width: 70%;
+    height: 70%;
+
+    @media (max-width: 1000px) {
+        width: 100%;
+        height: 100%;
+    }
+`
